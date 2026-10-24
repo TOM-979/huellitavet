@@ -1,0 +1,7 @@
+/* Tarjeta de producto (ui/TarjetaProducto.jsx): foto que se acerca y barra de acciones que sube */
+.producto-foto { transition: transform 700ms var(--ease-salida); }
+.producto-acciones { opacity: 0; transform: translateY(14px); transition: opacity 250ms ease, transform 400ms var(--ease-salida); }
+@media (hover: hover) and (pointer: fine) {
+  .producto:hover .producto-foto { transform: scale(1.06); }
+  .producto:hover .producto-acciones { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,1433 @@
+{
+ "generado": "2026-10-24T06:13:22.931Z",
+ "especies": [
+  {
+   "id": 1,
+   "slug": "perro",
+   "nombre": "Perros",
+   "grupo": "Mamíferos",
+   "descripcion": "Chequeos, vacunas, cirugía y grooming para todas las razas y edades.",
+   "imagen": "https://images.unsplash.com/photo-1693615775129-f2004d6e3e0b",
+   "productos": 14,
+   "servicios": 14
+  },
+  {
+   "id": 2,
+   "slug": "gato",
+   "nombre": "Gatos",
+   "grupo": "Mamíferos",
+   "descripcion": "Consultorio cat-friendly, sin ladridos y con manejo de bajo estrés.",
+   "imagen": "https://images.unsplash.com/photo-1536589961747-e239b2abbec2",
+   "productos": 13,
+   "servicios": 14
+  },
+  {
+   "id": 3,
+   "slug": "loro",
+   "nombre": "Loros y guacamayos",
+   "grupo": "Aves",
+   "descripcion": "Medicina aviar, nutrición, corte de pico y uñas para aves grandes.",
+   "imagen": "https://images.unsplash.com/photo-1544923408-75c5cef46f14",
+   "productos": 5,
+   "servicios": 9
+  },
+  {
+   "id": 4,
+   "slug": "periquito",
+   "nombre": "Periquitos y canarios",
+   "grupo": "Aves",
+   "descripcion": "Revisión de plumaje, parásitos y alimentación para aves pequeñas.",
+   "imagen": "https://images.unsplash.com/photo-1560595643-90bb555b2eaa",
+   "productos": 5,
+   "servicios": 8
+  },
+  {
+   "id": 5,
+   "slug": "cuy",
+   "nombre": "Cuyes",
+   "grupo": "Exóticos",
+   "descripcion": "Control dental, vitamina C y manejo especializado del cuy.",
+   "imagen": "https://images.unsplash.com/photo-1548767797-d8c844163c4c",
+   "productos": 7,
+   "servicios": 12
+  },
+  {
+   "id": 6,
+   "slug": "conejo",
+   "nombre": "Conejos",
+   "grupo": "Exóticos",
+   "descripcion": "Esterilización, dientes y digestión: los puntos clave del conejo.",
+   "imagen": "https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308",
+   "productos": 7,
+   "servicios": 15
+  },
+  {
+   "id": 7,
+   "slug": "hamster",
+   "nombre": "Hámsters y roedores",
+   "grupo": "Exóticos",
+   "descripcion": "Hámsters, jerbos y ratas con instrumental de tamaño adecuado.",
+   "imagen": "https://images.unsplash.com/photo-1425082661705-1834bfd09dca",
+   "productos": 5,
+   "servicios": 8
+  },
+  {
+   "id": 8,
+   "slug": "huron",
+   "nombre": "Hurones",
+   "grupo": "Exóticos",
+   "descripcion": "Vacunas, control hormonal y chequeos para hurones.",
+   "imagen": "https://images.unsplash.com/photo-1675676198832-f2a1022608a7",
+   "productos": 3,
+   "servicios": 12
+  },
+  {
+   "id": 9,
+   "slug": "tortuga",
+   "nombre": "Tortugas",
+   "grupo": "Exóticos",
+   "descripcion": "Caparazón, luz UVB y alimentación para tortugas de agua y tierra.",
+   "imagen": "https://images.unsplash.com/photo-1597776941486-054bf5529210",
+   "productos": 4,
+   "servicios": 8
+  },
+  {
+   "id": 10,
+   "slug": "reptil",
+   "nombre": "Reptiles",
+   "grupo": "Exóticos",
+   "descripcion": "Iguanas, geckos y dragones barbudos: hábitat y temperatura correctos.",
+   "imagen": "https://images.unsplash.com/photo-1619816128374-a6b4766ca92c",
+   "productos": 2,
+   "servicios": 8
+  },
+  {
+   "id": 11,
+   "slug": "pez",
+   "nombre": "Peces",
+   "grupo": "Acuáticos",
+   "descripcion": "Calidad del agua, enfermedades comunes y asesoría para tu acuario.",
+   "imagen": "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5",
+   "productos": 3,
+   "servicios": 6
+  }
+ ],
+ "categorias": [
+  {
+   "id": 1,
+   "slug": "alimento",
+   "nombre": "Alimento",
+   "icono": "bowl",
+   "productos": 12
+  },
+  {
+   "id": 2,
+   "slug": "snacks",
+   "nombre": "Snacks y premios",
+   "icono": "bone",
+   "productos": 4
+  },
+  {
+   "id": 3,
+   "slug": "juguetes",
+   "nombre": "Juguetes",
+   "icono": "ball",
+   "productos": 5
+  },
+  {
+   "id": 4,
+   "slug": "camas",
+   "nombre": "Camas y descanso",
+   "icono": "bed",
+   "productos": 3
+  },
+  {
+   "id": 5,
+   "slug": "paseo",
+   "nombre": "Paseo y transporte",
+   "icono": "leash",
+   "productos": 3
+  },
+  {
+   "id": 6,
+   "slug": "higiene",
+   "nombre": "Higiene y grooming",
+   "icono": "drop",
+   "productos": 4
+  },
+  {
+   "id": 7,
+   "slug": "salud",
+   "nombre": "Salud y farmacia",
+   "icono": "cross",
+   "productos": 3
+  },
+  {
+   "id": 8,
+   "slug": "jaulas",
+   "nombre": "Jaulas y hábitats",
+   "icono": "cage",
+   "productos": 4
+  },
+  {
+   "id": 9,
+   "slug": "acuarismo",
+   "nombre": "Acuarismo",
+   "icono": "fish",
+   "productos": 2
+  },
+  {
+   "id": 10,
+   "slug": "terrarios",
+   "nombre": "Terrarios",
+   "icono": "leaf",
+   "productos": 2
+  },
+  {
+   "id": 11,
+   "slug": "accesorios",
+   "nombre": "Accesorios",
+   "icono": "tag",
+   "productos": 2
+  },
+  {
+   "id": 12,
+   "slug": "ropa",
+   "nombre": "Ropa",
+   "icono": "shirt",
+   "productos": 1
+  }
+ ],
+ "servicios": [
+  {
+   "id": 1,
+   "slug": "consulta",
+   "nombre": "Consulta general",
+   "categoria": "Salud",
+   "descripcion": "Evaluación completa de la salud de tu mascota, de la nariz a la cola.",
+   "incluye": [
+    "Examen físico completo",
+    "Peso y condición corporal",
+    "Plan de cuidado por escrito"
+   ],
+   "precio": 50,
+   "desde": false,
+   "duracion_min": 30,
+   "imagen": "https://images.unsplash.com/photo-1770836037949-c5e8db65aa86",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  },
+  {
+   "id": 2,
+   "slug": "vacunacion",
+   "nombre": "Vacunación",
+   "categoria": "Prevención",
+   "descripcion": "Calendario de vacunas para cachorros, adultos y senior.",
+   "incluye": [
+    "Vacuna del día",
+    "Carné de vacunación",
+    "Recordatorio de la siguiente dosis"
+   ],
+   "precio": 45,
+   "desde": false,
+   "duracion_min": 20,
+   "imagen": "https://images.unsplash.com/photo-1770836037275-38b44e4b101f?crop=entropy",
+   "especies": [
+    "perro",
+    "gato",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 3,
+   "slug": "desparasitacion",
+   "nombre": "Desparasitación",
+   "categoria": "Prevención",
+   "descripcion": "Control de parásitos internos y externos según la especie y el peso.",
+   "incluye": [
+    "Dosis según peso",
+    "Examen de heces opcional",
+    "Plan anual"
+   ],
+   "precio": 35,
+   "desde": false,
+   "duracion_min": 15,
+   "imagen": "https://images.unsplash.com/photo-1725409796872-8b41e8eca929",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  },
+  {
+   "id": 4,
+   "slug": "grooming",
+   "nombre": "Baño y grooming",
+   "categoria": "Estética",
+   "descripcion": "Baño con productos hipoalergénicos, corte de raza y perfume suave.",
+   "incluye": [
+    "Baño y secado",
+    "Corte según raza",
+    "Limpieza de oídos"
+   ],
+   "precio": 60,
+   "desde": true,
+   "duracion_min": 90,
+   "imagen": "https://images.unsplash.com/photo-1583534778255-5d67d3dcf95d",
+   "especies": [
+    "perro",
+    "gato",
+    "conejo"
+   ]
+  },
+  {
+   "id": 5,
+   "slug": "unas-pico",
+   "nombre": "Corte de uñas y pico",
+   "categoria": "Estética",
+   "descripcion": "Recorte seguro de uñas y pico con sujeción de bajo estrés.",
+   "incluye": [
+    "Uñas",
+    "Pico (aves y tortugas)",
+    "Revisión de patas"
+   ],
+   "precio": 25,
+   "desde": false,
+   "duracion_min": 15,
+   "imagen": "https://images.unsplash.com/photo-1522858547137-f1dcec554f55",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "tortuga",
+    "reptil"
+   ]
+  },
+  {
+   "id": 6,
+   "slug": "dental",
+   "nombre": "Limpieza dental",
+   "categoria": "Salud",
+   "descripcion": "Profilaxis con ultrasonido y pulido. En roedores, ajuste dental.",
+   "incluye": [
+    "Ultrasonido",
+    "Pulido",
+    "Evaluación de encías"
+   ],
+   "precio": 120,
+   "desde": false,
+   "duracion_min": 60,
+   "imagen": "https://images.unsplash.com/photo-1770836037816-4445dbd449fd",
+   "especies": [
+    "perro",
+    "gato",
+    "cuy",
+    "conejo"
+   ]
+  },
+  {
+   "id": 7,
+   "slug": "laboratorio",
+   "nombre": "Laboratorio clínico",
+   "categoria": "Diagnóstico",
+   "descripcion": "Hemograma, bioquímica, orina y heces con resultados en 24 horas.",
+   "incluye": [
+    "Toma de muestra",
+    "Informe digital",
+    "Interpretación del médico"
+   ],
+   "precio": 80,
+   "desde": true,
+   "duracion_min": 30,
+   "imagen": "https://images.unsplash.com/photo-1602052577122-f73b9710adba",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  },
+  {
+   "id": 8,
+   "slug": "ecografia",
+   "nombre": "Ecografía",
+   "categoria": "Diagnóstico",
+   "descripcion": "Ecografía abdominal y gestacional con equipo de alta resolución.",
+   "incluye": [
+    "Estudio completo",
+    "Imágenes digitales",
+    "Informe"
+   ],
+   "precio": 140,
+   "desde": false,
+   "duracion_min": 40,
+   "imagen": "https://images.unsplash.com/photo-1770836037183-e0b4471fe2c0?crop=entropy",
+   "especies": [
+    "perro",
+    "gato",
+    "cuy",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 9,
+   "slug": "rayos-x",
+   "nombre": "Rayos X digital",
+   "categoria": "Diagnóstico",
+   "descripcion": "Radiografía digital para huesos, tórax y control de caparazón en tortugas.",
+   "incluye": [
+    "Dos proyecciones",
+    "Imágenes en tu correo",
+    "Lectura del especialista"
+   ],
+   "precio": 110,
+   "desde": false,
+   "duracion_min": 30,
+   "imagen": "https://images.unsplash.com/photo-1770836037793-95bdbf190f71",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  },
+  {
+   "id": 10,
+   "slug": "cirugia",
+   "nombre": "Cirugía y esterilización",
+   "categoria": "Cirugía",
+   "descripcion": "Esterilizaciones y cirugías programadas con anestesia inhalada y monitoreo.",
+   "incluye": [
+    "Evaluación prequirúrgica",
+    "Anestesia inhalada",
+    "Control posoperatorio"
+   ],
+   "precio": 250,
+   "desde": true,
+   "duracion_min": 120,
+   "imagen": "https://images.unsplash.com/photo-1551076805-e1869033e561",
+   "especies": [
+    "perro",
+    "gato",
+    "cuy",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 11,
+   "slug": "aves",
+   "nombre": "Medicina de aves",
+   "categoria": "Especialidades",
+   "descripcion": "Consulta especializada para loros, guacamayos, periquitos y canarios.",
+   "incluye": [
+    "Examen de plumaje",
+    "Revisión de pico y buche",
+    "Asesoría nutricional"
+   ],
+   "precio": 70,
+   "desde": false,
+   "duracion_min": 40,
+   "imagen": "https://images.unsplash.com/photo-1555169062-013468b47731",
+   "especies": [
+    "loro",
+    "periquito"
+   ]
+  },
+  {
+   "id": 12,
+   "slug": "exoticos",
+   "nombre": "Medicina de exóticos",
+   "categoria": "Especialidades",
+   "descripcion": "Cuyes, conejos, hámsters, hurones, tortugas y reptiles con especialista.",
+   "incluye": [
+    "Manejo especializado",
+    "Revisión dental",
+    "Asesoría de hábitat"
+   ],
+   "precio": 70,
+   "desde": false,
+   "duracion_min": 40,
+   "imagen": "https://images.unsplash.com/photo-1597306599196-bf148477596b",
+   "especies": [
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil"
+   ]
+  },
+  {
+   "id": 13,
+   "slug": "microchip",
+   "nombre": "Microchip e identificación",
+   "categoria": "Prevención",
+   "descripcion": "Microchip ISO con registro nacional para que tu mascota siempre vuelva a casa.",
+   "incluye": [
+    "Microchip ISO",
+    "Registro",
+    "Certificado"
+   ],
+   "precio": 65,
+   "desde": false,
+   "duracion_min": 15,
+   "imagen": "https://images.unsplash.com/photo-1600804340584-c7db2eacf0bf",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 14,
+   "slug": "nutricion",
+   "nombre": "Asesoría nutricional",
+   "categoria": "Bienestar",
+   "descripcion": "Plan de alimentación según especie, edad y condición: dietas, pesos y porciones.",
+   "incluye": [
+    "Evaluación corporal",
+    "Plan escrito",
+    "Control a los 30 días"
+   ],
+   "precio": 55,
+   "desde": false,
+   "duracion_min": 40,
+   "imagen": "https://images.unsplash.com/photo-1632236568054-12f36ecee2f6",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  },
+  {
+   "id": 15,
+   "slug": "hospitalizacion",
+   "nombre": "Hospitalización",
+   "categoria": "Cuidados",
+   "descripcion": "Cuidado 24 horas con monitoreo, fluidoterapia y reportes diarios a la familia.",
+   "incluye": [
+    "Monitoreo 24 h",
+    "Medicación",
+    "Reporte diario"
+   ],
+   "precio": 150,
+   "desde": true,
+   "duracion_min": 1440,
+   "imagen": "https://images.unsplash.com/photo-1759164955427-14ca448a839d",
+   "especies": [
+    "perro",
+    "gato",
+    "cuy",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 16,
+   "slug": "teleconsulta",
+   "nombre": "Teleconsulta",
+   "categoria": "Bienestar",
+   "descripcion": "Videollamada con un veterinario para dudas, controles y seguimiento.",
+   "incluye": [
+    "Videollamada",
+    "Receta digital si aplica",
+    "Resumen por correo"
+   ],
+   "precio": 35,
+   "desde": false,
+   "duracion_min": 20,
+   "imagen": "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def",
+   "especies": [
+    "perro",
+    "gato",
+    "loro",
+    "periquito",
+    "cuy",
+    "conejo",
+    "hamster",
+    "huron",
+    "tortuga",
+    "reptil",
+    "pez"
+   ]
+  }
+ ],
+ "veterinarios": [
+  {
+   "id": 1,
+   "nombre": "Thair",
+   "especialidad": "Medicina general y felina",
+   "bio": "12 años de experiencia. Certificada en manejo cat-friendly.",
+   "imagen": "https://images.unsplash.com/photo-1725409796872-8b41e8eca929"
+  },
+  {
+   "id": 2,
+   "nombre": "Tom",
+   "especialidad": "Cirugía y traumatología",
+   "bio": "Especialista en cirugía de tejidos blandos y ortopedia.",
+   "imagen": "https://images.unsplash.com/photo-1770836037275-38b44e4b101f?crop=entropy"
+  },
+  {
+   "id": 3,
+   "nombre": "Lia",
+   "especialidad": "Aves y animales exóticos",
+   "bio": "Atiende loros, cuyes, conejos y reptiles desde 2015.",
+   "imagen": "https://images.unsplash.com/photo-1522858547137-f1dcec554f55"
+  },
+  {
+   "id": 4,
+   "nombre": "Mayra",
+   "especialidad": "Dermatología y diagnóstico por imagen",
+   "bio": "Ecografía, rayos X y problemas de piel.",
+   "imagen": "https://images.unsplash.com/photo-1770836037793-95bdbf190f71"
+  }
+ ],
+ "productos": [
+  {
+   "id": 14,
+   "sku": "SNK-002",
+   "nombre": "Snack cremoso para gato x12",
+   "descripcion": "Premio líquido de atún para dar de la mano. Ideal para medicar.",
+   "precio": 27.9,
+   "stock": 40,
+   "rating": 4.9,
+   "resenas": 140,
+   "imagen": "https://images.unsplash.com/photo-1558993457-4bc6ec2c3734",
+   "destacado": true,
+   "categoria": "snacks",
+   "categoria_nombre": "Snacks y premios",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 1,
+   "sku": "ALI-001",
+   "nombre": "Alimento Premium Adulto 15 kg",
+   "descripcion": "Croquetas con pollo y arroz, omega 3 y 6 para un pelaje brillante. Para razas medianas y grandes.",
+   "precio": 189.9,
+   "stock": 14,
+   "rating": 4.8,
+   "resenas": 128,
+   "imagen": "https://images.unsplash.com/photo-1591946559594-8c6d3b7391eb",
+   "destacado": true,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 32,
+   "sku": "SAL-001",
+   "nombre": "Antipulgas pipeta x3",
+   "descripcion": "Protege contra pulgas y garrapatas por tres meses.",
+   "precio": 64,
+   "stock": 18,
+   "rating": 4.8,
+   "resenas": 110,
+   "imagen": "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
+   "destacado": true,
+   "categoria": "salud",
+   "categoria_nombre": "Salud y farmacia",
+   "especies": [
+    "perro",
+    "gato"
+   ]
+  },
+  {
+   "id": 3,
+   "sku": "ALI-003",
+   "nombre": "Alimento Gato Adulto Salmón 3 kg",
+   "descripcion": "Con salmón real y control de bolas de pelo. Cuida la salud urinaria.",
+   "precio": 74.5,
+   "stock": 25,
+   "rating": 4.9,
+   "resenas": 96,
+   "imagen": "https://images.unsplash.com/photo-1596854331442-3cf47265cefb",
+   "destacado": true,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 7,
+   "sku": "ALI-007",
+   "nombre": "Pellets para cuy con vitamina C 2 kg",
+   "descripcion": "El cuy no produce vitamina C: este pellet la aporta en cada porción.",
+   "precio": 29.9,
+   "stock": 35,
+   "rating": 4.8,
+   "resenas": 88,
+   "imagen": "https://images.unsplash.com/photo-1512087499053-023f060e2cea",
+   "destacado": true,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "cuy"
+   ]
+  },
+  {
+   "id": 22,
+   "sku": "CAM-001",
+   "nombre": "Cama ortopédica mediana",
+   "descripcion": "Espuma viscoelástica que alivia las articulaciones. Funda lavable.",
+   "precio": 119,
+   "stock": 8,
+   "rating": 4.8,
+   "resenas": 72,
+   "imagen": "https://images.unsplash.com/photo-1598397678815-c5dc869035b8",
+   "destacado": true,
+   "categoria": "camas",
+   "categoria_nombre": "Camas y descanso",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 17,
+   "sku": "JUG-001",
+   "nombre": "Pelota indestructible con sonido",
+   "descripcion": "Caucho natural resistente a mordidas fuertes. Flota en el agua.",
+   "precio": 29.9,
+   "stock": 35,
+   "rating": 4.7,
+   "resenas": 54,
+   "imagen": "https://images.unsplash.com/photo-1612502169027-5a379283f9c0",
+   "destacado": true,
+   "categoria": "juguetes",
+   "categoria_nombre": "Juguetes",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 24,
+   "sku": "CAM-003",
+   "nombre": "Rascador torre 120 cm",
+   "descripcion": "Tres niveles, cueva y postes de sisal natural.",
+   "precio": 229,
+   "stock": 5,
+   "rating": 4.9,
+   "resenas": 44,
+   "imagen": "https://images.unsplash.com/photo-1601758065893-25c11bfa69b5",
+   "destacado": true,
+   "categoria": "camas",
+   "categoria_nombre": "Camas y descanso",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 5,
+   "sku": "ALI-005",
+   "nombre": "Mezcla de semillas para loros 2 kg",
+   "descripcion": "Girasol, maíz, cártamo y frutas deshidratadas. Sin colorantes.",
+   "precio": 39.9,
+   "stock": 30,
+   "rating": 4.7,
+   "resenas": 42,
+   "imagen": "https://images.unsplash.com/photo-1560813562-fd09315f5ce8",
+   "destacado": true,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "loro"
+   ]
+  },
+  {
+   "id": 39,
+   "sku": "ACU-001",
+   "nombre": "Acuario completo 40 L con filtro y luz LED",
+   "descripcion": "Listo para empezar: filtro silencioso, luz y tapa.",
+   "precio": 279,
+   "stock": 5,
+   "rating": 4.8,
+   "resenas": 33,
+   "imagen": "https://images.unsplash.com/photo-1436891461396-6df41158de09",
+   "destacado": true,
+   "categoria": "acuarismo",
+   "categoria_nombre": "Acuarismo",
+   "especies": [
+    "pez"
+   ]
+  },
+  {
+   "id": 35,
+   "sku": "JAU-001",
+   "nombre": "Jaula para loro 90 cm con perchas",
+   "descripcion": "Barrotes reforzados, techo abatible y bandeja extraíble.",
+   "precio": 349,
+   "stock": 4,
+   "rating": 4.8,
+   "resenas": 15,
+   "imagen": "https://images.unsplash.com/photo-1552826580-0d47cf898dee",
+   "destacado": true,
+   "categoria": "jaulas",
+   "categoria_nombre": "Jaulas y hábitats",
+   "especies": [
+    "loro"
+   ]
+  },
+  {
+   "id": 8,
+   "sku": "ALI-008",
+   "nombre": "Heno de timothy premium 1 kg",
+   "descripcion": "Fibra larga que desgasta los dientes y mantiene sana la digestión.",
+   "precio": 24.9,
+   "stock": 50,
+   "rating": 4.9,
+   "resenas": 120,
+   "imagen": "https://images.unsplash.com/photo-1725206076101-e83d6c93abaf",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "cuy",
+    "conejo"
+   ]
+  },
+  {
+   "id": 13,
+   "sku": "SNK-001",
+   "nombre": "Premios dentales para perro x28",
+   "descripcion": "Reducen el sarro y refrescan el aliento. Uno al día.",
+   "precio": 45.9,
+   "stock": 25,
+   "rating": 4.8,
+   "resenas": 102,
+   "imagen": "https://images.unsplash.com/photo-1568640347023-a616a30bc3bd",
+   "destacado": false,
+   "categoria": "snacks",
+   "categoria_nombre": "Snacks y premios",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 26,
+   "sku": "PAS-002",
+   "nombre": "Arnés antitirones acolchado",
+   "descripcion": "Reparte la presión en el pecho. Bandas reflectivas para la noche.",
+   "precio": 69.9,
+   "stock": 18,
+   "rating": 4.8,
+   "resenas": 81,
+   "imagen": "https://images.unsplash.com/photo-1530700131180-d43d9b8cc41f",
+   "destacado": false,
+   "categoria": "paseo",
+   "categoria_nombre": "Paseo y transporte",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 44,
+   "sku": "ACC-002",
+   "nombre": "Placa de identificación grabada",
+   "descripcion": "Grabado láser con el nombre y teléfono de tu mascota.",
+   "precio": 19.9,
+   "stock": 50,
+   "rating": 4.9,
+   "resenas": 77,
+   "imagen": "https://images.unsplash.com/photo-1682969651476-6fb48aba8b03",
+   "destacado": false,
+   "categoria": "accesorios",
+   "categoria_nombre": "Accesorios",
+   "especies": [
+    "perro",
+    "gato"
+   ]
+  },
+  {
+   "id": 6,
+   "sku": "ALI-006",
+   "nombre": "Alpiste y mijo para periquitos 1 kg",
+   "descripcion": "Mezcla balanceada para periquitos, canarios y aves pequeñas.",
+   "precio": 18.9,
+   "stock": 40,
+   "rating": 4.6,
+   "resenas": 73,
+   "imagen": "https://images.unsplash.com/photo-1560813562-fd09315f5ce8",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "periquito"
+   ]
+  },
+  {
+   "id": 25,
+   "sku": "PAS-001",
+   "nombre": "Correa retráctil 5 m",
+   "descripcion": "Freno con un solo botón y mango ergonómico. Hasta 25 kg.",
+   "precio": 54.9,
+   "stock": 14,
+   "rating": 4.7,
+   "resenas": 66,
+   "imagen": "https://images.unsplash.com/photo-1530700131180-d43d9b8cc41f",
+   "destacado": false,
+   "categoria": "paseo",
+   "categoria_nombre": "Paseo y transporte",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 2,
+   "sku": "ALI-002",
+   "nombre": "Alimento Cachorro Razas Pequeñas 7 kg",
+   "descripcion": "Fórmula con DHA para el desarrollo cerebral y calcio para huesos fuertes.",
+   "precio": 98.5,
+   "stock": 20,
+   "rating": 4.7,
+   "resenas": 64,
+   "imagen": "https://images.unsplash.com/photo-1714068691210-073dc52c6c1d",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 20,
+   "sku": "JUG-004",
+   "nombre": "Rueda silenciosa para hámster 21 cm",
+   "descripcion": "Superficie cerrada que protege las patitas. Sin chirridos.",
+   "precio": 39.9,
+   "stock": 15,
+   "rating": 4.8,
+   "resenas": 61,
+   "imagen": "https://images.unsplash.com/photo-1588331086909-9861b6e15a30",
+   "destacado": false,
+   "categoria": "juguetes",
+   "categoria_nombre": "Juguetes",
+   "especies": [
+    "hamster"
+   ]
+  },
+  {
+   "id": 28,
+   "sku": "HIG-001",
+   "nombre": "Shampoo hipoalergénico con avena",
+   "descripcion": "Para pieles sensibles, sin parabenos ni colorantes.",
+   "precio": 34.9,
+   "stock": 30,
+   "rating": 4.7,
+   "resenas": 59,
+   "imagen": "https://images.unsplash.com/photo-1647002380358-fc70ed2f04e0",
+   "destacado": false,
+   "categoria": "higiene",
+   "categoria_nombre": "Higiene y grooming",
+   "especies": [
+    "perro",
+    "gato"
+   ]
+  },
+  {
+   "id": 10,
+   "sku": "ALI-010",
+   "nombre": "Escamas tropicales para peces 100 g",
+   "descripcion": "Alimento completo que realza los colores y no enturbia el agua.",
+   "precio": 21.9,
+   "stock": 60,
+   "rating": 4.7,
+   "resenas": 58,
+   "imagen": "https://images.unsplash.com/photo-1519657635301-68bb60c798f7",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "pez"
+   ]
+  },
+  {
+   "id": 29,
+   "sku": "HIG-002",
+   "nombre": "Cepillo deslanador doble cara",
+   "descripcion": "Retira el pelo muerto y reduce la caída en casa.",
+   "precio": 42.9,
+   "stock": 22,
+   "rating": 4.8,
+   "resenas": 57,
+   "imagen": "https://images.unsplash.com/photo-1611173622933-91942d394b04",
+   "destacado": false,
+   "categoria": "higiene",
+   "categoria_nombre": "Higiene y grooming",
+   "especies": [
+    "perro",
+    "gato",
+    "conejo"
+   ]
+  },
+  {
+   "id": 43,
+   "sku": "ACC-001",
+   "nombre": "Comedero doble de acero inoxidable",
+   "descripcion": "Base antideslizante y tazones desmontables aptos para lavavajillas.",
+   "precio": 34.9,
+   "stock": 30,
+   "rating": 4.6,
+   "resenas": 52,
+   "imagen": "https://images.unsplash.com/photo-1632236568025-1256513514b7",
+   "destacado": false,
+   "categoria": "accesorios",
+   "categoria_nombre": "Accesorios",
+   "especies": [
+    "perro",
+    "gato"
+   ]
+  },
+  {
+   "id": 4,
+   "sku": "ALI-004",
+   "nombre": "Alimento Gato Esterilizado 7 kg",
+   "descripcion": "Menos grasa y más fibra para gatos esterilizados. Mantiene el peso ideal.",
+   "precio": 132,
+   "stock": 12,
+   "rating": 4.8,
+   "resenas": 51,
+   "imagen": "https://images.unsplash.com/photo-1596854331442-3cf47265cefb",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 40,
+   "sku": "ACU-002",
+   "nombre": "Acondicionador de agua 250 ml",
+   "descripcion": "Neutraliza el cloro del agua de caño en segundos.",
+   "precio": 24.9,
+   "stock": 30,
+   "rating": 4.7,
+   "resenas": 49,
+   "imagen": "https://images.unsplash.com/photo-1538719501547-bc023056a8b6",
+   "destacado": false,
+   "categoria": "acuarismo",
+   "categoria_nombre": "Acuarismo",
+   "especies": [
+    "tortuga",
+    "pez"
+   ]
+  },
+  {
+   "id": 16,
+   "sku": "SNK-004",
+   "nombre": "Snacks de zanahoria para roedores",
+   "descripcion": "Bastones horneados de zanahoria y alfalfa, sin azúcar.",
+   "precio": 12.9,
+   "stock": 45,
+   "rating": 4.7,
+   "resenas": 47,
+   "imagen": "https://images.unsplash.com/photo-1725206076101-e83d6c93abaf",
+   "destacado": false,
+   "categoria": "snacks",
+   "categoria_nombre": "Snacks y premios",
+   "especies": [
+    "cuy",
+    "conejo",
+    "hamster"
+   ]
+  },
+  {
+   "id": 18,
+   "sku": "JUG-002",
+   "nombre": "Varita con plumas y cascabel",
+   "descripcion": "Estimula el instinto de caza y el ejercicio diario.",
+   "precio": 18.9,
+   "stock": 30,
+   "rating": 4.6,
+   "resenas": 47,
+   "imagen": "https://images.unsplash.com/photo-1638826595775-e2eae86cda8e",
+   "destacado": false,
+   "categoria": "juguetes",
+   "categoria_nombre": "Juguetes",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 30,
+   "sku": "HIG-003",
+   "nombre": "Arena aglomerante sin olor 10 kg",
+   "descripcion": "Bentonita con control de olores. Bloques compactos fáciles de retirar.",
+   "precio": 42.9,
+   "stock": 22,
+   "rating": 4.6,
+   "resenas": 41,
+   "imagen": "https://images.unsplash.com/photo-1592194996308-7b43878e84a6",
+   "destacado": false,
+   "categoria": "higiene",
+   "categoria_nombre": "Higiene y grooming",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 27,
+   "sku": "PAS-003",
+   "nombre": "Transportadora ventilada mediana",
+   "descripcion": "Apta para viajes en avión. Puerta metálica con seguro.",
+   "precio": 139,
+   "stock": 7,
+   "rating": 4.7,
+   "resenas": 39,
+   "imagen": "https://images.unsplash.com/photo-1761614282055-29e039aac354",
+   "destacado": false,
+   "categoria": "paseo",
+   "categoria_nombre": "Paseo y transporte",
+   "especies": [
+    "perro",
+    "gato",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 9,
+   "sku": "ALI-009",
+   "nombre": "Mezcla para hámster con frutas 800 g",
+   "descripcion": "Semillas, cereales y trozos de fruta. Fomenta el forrajeo natural.",
+   "precio": 16.5,
+   "stock": 45,
+   "rating": 4.5,
+   "resenas": 37,
+   "imagen": "https://images.unsplash.com/photo-1725522908781-3738eb43e031",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "hamster"
+   ]
+  },
+  {
+   "id": 34,
+   "sku": "SAL-003",
+   "nombre": "Vitamina C en gotas para cuy",
+   "descripcion": "Previene el escorbuto. Se agrega al agua diaria.",
+   "precio": 22.9,
+   "stock": 28,
+   "rating": 4.8,
+   "resenas": 36,
+   "imagen": "https://images.unsplash.com/photo-1603805167397-892be3fc3090",
+   "destacado": false,
+   "categoria": "salud",
+   "categoria_nombre": "Salud y farmacia",
+   "especies": [
+    "cuy"
+   ]
+  },
+  {
+   "id": 23,
+   "sku": "CAM-002",
+   "nombre": "Cama iglú térmica para gato",
+   "descripcion": "Forma de cueva que conserva el calor. Ideal para gatos friolentos.",
+   "precio": 89,
+   "stock": 9,
+   "rating": 4.9,
+   "resenas": 35,
+   "imagen": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55",
+   "destacado": false,
+   "categoria": "camas",
+   "categoria_nombre": "Camas y descanso",
+   "especies": [
+    "gato"
+   ]
+  },
+  {
+   "id": 15,
+   "sku": "SNK-003",
+   "nombre": "Barritas de frutas para aves",
+   "descripcion": "Barritas con miel y frutas para colgar en la jaula.",
+   "precio": 15.9,
+   "stock": 35,
+   "rating": 4.6,
+   "resenas": 33,
+   "imagen": "https://images.unsplash.com/photo-1616902509409-a624c4f31a56",
+   "destacado": false,
+   "categoria": "snacks",
+   "categoria_nombre": "Snacks y premios",
+   "especies": [
+    "loro",
+    "periquito"
+   ]
+  },
+  {
+   "id": 31,
+   "sku": "HIG-004",
+   "nombre": "Viruta de papel para roedores 30 L",
+   "descripcion": "Sustrato sin polvo, muy absorbente y compostable.",
+   "precio": 36.9,
+   "stock": 20,
+   "rating": 4.7,
+   "resenas": 31,
+   "imagen": "https://images.unsplash.com/photo-1577099595920-bf19294bc408",
+   "destacado": false,
+   "categoria": "higiene",
+   "categoria_nombre": "Higiene y grooming",
+   "especies": [
+    "cuy",
+    "conejo",
+    "hamster"
+   ]
+  },
+  {
+   "id": 11,
+   "sku": "ALI-011",
+   "nombre": "Pellets flotantes para tortuga 250 g",
+   "descripcion": "Con calcio y vitamina D3 para un caparazón fuerte.",
+   "precio": 19.9,
+   "stock": 30,
+   "rating": 4.6,
+   "resenas": 29,
+   "imagen": "https://images.unsplash.com/photo-1604984938695-709c41f45cf1",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "tortuga"
+   ]
+  },
+  {
+   "id": 45,
+   "sku": "ROP-001",
+   "nombre": "Casaca impermeable para perro",
+   "descripcion": "Forro polar y capucha. Ideal para el invierno limeño.",
+   "precio": 59.9,
+   "stock": 15,
+   "rating": 4.6,
+   "resenas": 28,
+   "imagen": "https://images.unsplash.com/photo-1699686160376-940e512f65f8",
+   "destacado": false,
+   "categoria": "ropa",
+   "categoria_nombre": "Ropa",
+   "especies": [
+    "perro"
+   ]
+  },
+  {
+   "id": 37,
+   "sku": "JAU-003",
+   "nombre": "Hábitat para hámster dos pisos",
+   "descripcion": "Base profunda para excavar, rampa y casita.",
+   "precio": 189,
+   "stock": 6,
+   "rating": 4.7,
+   "resenas": 27,
+   "imagen": "https://images.unsplash.com/photo-1577099595920-bf19294bc408",
+   "destacado": false,
+   "categoria": "jaulas",
+   "categoria_nombre": "Jaulas y hábitats",
+   "especies": [
+    "hamster"
+   ]
+  },
+  {
+   "id": 19,
+   "sku": "JUG-003",
+   "nombre": "Columpio de madera natural para aves",
+   "descripcion": "Madera sin tratar y cuentas de colores. Fácil de colgar.",
+   "precio": 34.9,
+   "stock": 18,
+   "rating": 4.8,
+   "resenas": 26,
+   "imagen": "https://images.unsplash.com/photo-1616902509409-a624c4f31a56",
+   "destacado": false,
+   "categoria": "juguetes",
+   "categoria_nombre": "Juguetes",
+   "especies": [
+    "loro",
+    "periquito"
+   ]
+  },
+  {
+   "id": 38,
+   "sku": "JAU-004",
+   "nombre": "Corral modular para conejo y cuy",
+   "descripcion": "Paneles armables para dar espacio de ejercicio seguro.",
+   "precio": 199,
+   "stock": 5,
+   "rating": 4.8,
+   "resenas": 24,
+   "imagen": "https://images.unsplash.com/photo-1609151354448-c4a53450c6e9",
+   "destacado": false,
+   "categoria": "jaulas",
+   "categoria_nombre": "Jaulas y hábitats",
+   "especies": [
+    "cuy",
+    "conejo"
+   ]
+  },
+  {
+   "id": 42,
+   "sku": "TER-002",
+   "nombre": "Lámpara UVB + calor para reptiles",
+   "descripcion": "Imprescindible para fijar el calcio y evitar enfermedades óseas.",
+   "precio": 79.9,
+   "stock": 12,
+   "rating": 4.7,
+   "resenas": 23,
+   "imagen": "https://images.unsplash.com/photo-1605047632156-a30df37facab",
+   "destacado": false,
+   "categoria": "terrarios",
+   "categoria_nombre": "Terrarios",
+   "especies": [
+    "tortuga",
+    "reptil"
+   ]
+  },
+  {
+   "id": 21,
+   "sku": "JUG-005",
+   "nombre": "Túnel de juego para conejos y cuyes",
+   "descripcion": "Túnel plegable de tela para esconderse y explorar.",
+   "precio": 32.9,
+   "stock": 16,
+   "rating": 4.7,
+   "resenas": 22,
+   "imagen": "https://images.unsplash.com/photo-1609151354448-c4a53450c6e9",
+   "destacado": false,
+   "categoria": "juguetes",
+   "categoria_nombre": "Juguetes",
+   "especies": [
+    "cuy",
+    "conejo",
+    "huron"
+   ]
+  },
+  {
+   "id": 36,
+   "sku": "JAU-002",
+   "nombre": "Jaula para periquitos 60 cm",
+   "descripcion": "Incluye comederos, bebedero y dos perchas de madera.",
+   "precio": 159,
+   "stock": 6,
+   "rating": 4.7,
+   "resenas": 21,
+   "imagen": "https://images.unsplash.com/photo-1552826580-0d47cf898dee",
+   "destacado": false,
+   "categoria": "jaulas",
+   "categoria_nombre": "Jaulas y hábitats",
+   "especies": [
+    "periquito"
+   ]
+  },
+  {
+   "id": 33,
+   "sku": "SAL-002",
+   "nombre": "Multivitamínico para aves 30 ml",
+   "descripcion": "Gotas para el agua de bebida. Mejora el plumaje.",
+   "precio": 26.9,
+   "stock": 25,
+   "rating": 4.6,
+   "resenas": 19,
+   "imagen": "https://images.unsplash.com/photo-1452570053594-1b985d6ea890",
+   "destacado": false,
+   "categoria": "salud",
+   "categoria_nombre": "Salud y farmacia",
+   "especies": [
+    "loro",
+    "periquito"
+   ]
+  },
+  {
+   "id": 12,
+   "sku": "ALI-012",
+   "nombre": "Alimento para hurón 2 kg",
+   "descripcion": "Alto en proteína animal, como necesita un carnívoro estricto.",
+   "precio": 89.9,
+   "stock": 10,
+   "rating": 4.7,
+   "resenas": 18,
+   "imagen": "https://images.unsplash.com/photo-1696785465297-62c79906d1a2",
+   "destacado": false,
+   "categoria": "alimento",
+   "categoria_nombre": "Alimento",
+   "especies": [
+    "huron"
+   ]
+  },
+  {
+   "id": 41,
+   "sku": "TER-001",
+   "nombre": "Terrario de vidrio 60 × 45 cm",
+   "descripcion": "Apertura frontal, ventilación superior y cierre seguro.",
+   "precio": 389,
+   "stock": 3,
+   "rating": 4.8,
+   "resenas": 12,
+   "imagen": "https://images.unsplash.com/photo-1691671421822-4e3d5466f6cd",
+   "destacado": false,
+   "categoria": "terrarios",
+   "categoria_nombre": "Terrarios",
+   "especies": [
+    "tortuga",
+    "reptil"
+   ]
+  }
+ ],
+ "estadisticas": {
+  "especies": 11,
+  "servicios": 16,
+  "productos": 45,
+  "veterinarios": 4,
+  "citas": 0,
+  "pedidos": 0
+ }
+}
