@@ -1,6 +1,10 @@
 node_modules/
 dist/
 vista-previa/
+backend/data/
+*.db
+*.db-wal
+*.db-shm
 .env
 .env.local
 .vercel
