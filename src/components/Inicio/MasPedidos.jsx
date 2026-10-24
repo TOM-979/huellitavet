@@ -1,5 +1,3 @@
-// Lo más pedido: vitrina con un producto destacado y el ranking al lado.
-// Pasar el mouse (o enfocar) por el ranking cambia el destacado; cada fila abre el detalle.
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react'
 import { ArrowRight, Plus, Star } from 'lucide-react'
@@ -17,8 +15,6 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
   const enVista = useInView(raiz, { amount: 0.35 })
   const reducir = useReducedMotion()
   const lista = productos.slice(0, 6)
-
-  // Pasa solo al siguiente producto; se detiene mientras el mouse o el foco están sobre la vitrina
   useEffect(() => {
     if (reducir || pausa || !enVista || lista.length < 2) return
     const id = setTimeout(() => setActivo(a => (a + 1) % lista.length), 4200)
@@ -35,7 +31,6 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
       </Aparecer>
 
       <div onMouseEnter={() => setPausa(true)} onMouseLeave={() => setPausa(false)} onFocus={() => setPausa(true)} onBlur={() => setPausa(false)} className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-10">
-        {/* Destacado */}
         <Aparecer className="relative overflow-hidden rounded-[36px] bg-noche text-white">
           <AnimatePresence initial={false}>
             <motion.div key={p.id} className="absolute inset-0"
@@ -68,7 +63,6 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
           </div>
         </Aparecer>
 
-        {/* Ranking */}
         <ol className="flex flex-col gap-2" aria-label="Ranking de los más pedidos">
           {lista.map((x, n) => {
             const sel = n === activo
@@ -76,7 +70,6 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
               <Aparecer as="li" key={x.id} retraso={n * 0.06}>
                 <button type="button" onMouseEnter={() => setActivo(n)} onFocus={() => setActivo(n)} onClick={() => onVer(x)}
                   className={`group relative flex w-full items-center gap-4 overflow-hidden rounded-3xl p-3 pr-5 text-left transition-colors duration-300 ${sel ? 'bg-superficie shadow-flotante ring-1 ring-borde' : 'hover:bg-superficie/60'}`}>
-                  {/* Barra de color del seleccionado */}
                   {sel && <motion.span layoutId="ranking-activo" className="absolute inset-y-3 left-0 w-1 rounded-full bg-secundario" transition={{ type: 'spring', duration: 0.4, bounce: 0.15 }} />}
                   <span className={`w-9 shrink-0 text-center font-display text-2xl font-semibold tabular-nums transition-colors duration-300 ${sel ? 'text-acento' : 'text-gris/60'}`}>
                     {String(n + 1).padStart(2, '0')}

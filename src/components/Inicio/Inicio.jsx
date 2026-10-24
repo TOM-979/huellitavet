@@ -1,6 +1,3 @@
-// Patrón: ruta de marketing «Home / landing»
-// Nav → hero con selector de especies → especies → servicios → cómo reservar → productos → equipo → visítanos → CTA → footer
-// Hilo de la página: la huella del logo deja un rastro que acompaña cada sección
 import './Inicio.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -23,7 +20,6 @@ import { IMAGEN_CTA } from '../../lib/escenas.js'
 import { CLINICA, diaEnLima, estadoClinica } from '../../lib/clinica.js'
 
 const EASE = [0.23, 1, 0.32, 1]
-// Especies que rotan en la portada (singular para la frase)
 const PORTADA = [
   { slug: 'perro', palabra: 'perro' },
   { slug: 'gato', palabra: 'gato' },
@@ -33,7 +29,6 @@ const PORTADA = [
   { slug: 'tortuga', palabra: 'tortuga' },
 ]
 
-// "Abierto ahora" con la hora de Lima; se actualiza cada minuto
 function useEstadoClinica() {
   const [estado, setEstado] = useState(estadoClinica)
   useEffect(() => { const t = setInterval(() => setEstado(estadoClinica()), 60000); return () => clearInterval(t) }, [])
@@ -60,12 +55,10 @@ function Portada({ especies }) {
   const lista = useMemo(() => PORTADA.map(p => ({ ...p, ...especies.find(e => e.slug === p.slug) })).filter(p => p.imagen), [especies])
   const actual = lista[i] ?? lista[0]
 
-  // La foto del arco baja un poco más lento que la página (parallax)
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const desfase = useTransform(scrollYProgress, [0, 1], [0, reducir ? 0 : 90])
 
-  // El arco se inclina un poco siguiendo al mouse (solo con mouse y sin movimiento reducido)
   const puntoX = useMotionValue(0), puntoY = useMotionValue(0)
   const giroY = useSpring(useTransform(puntoX, [-0.5, 0.5], [-7, 7]), { stiffness: 140, damping: 18 })
   const giroX = useSpring(useTransform(puntoY, [-0.5, 0.5], [6, -6]), { stiffness: 140, damping: 18 })
@@ -77,7 +70,6 @@ function Portada({ especies }) {
   }
   const alSalir = () => { puntoX.set(0); puntoY.set(0) }
 
-  // Rota sola hasta que la persona elige una especie (y nunca con movimiento reducido)
   useEffect(() => {
     if (pausa || reducir || lista.length < 2) return
     const t = setTimeout(() => setI(n => (n + 1) % lista.length), 4500)
@@ -115,7 +107,6 @@ function Portada({ especies }) {
           </a>
         </div>
 
-        {/* Selector de especies */}
         <div className="mt-8" onMouseEnter={() => setPausa(true)} onFocus={() => setPausa(true)}>
           <p id="elige-especie" className="text-sm font-semibold">Elige tu mascota</p>
           <div role="radiogroup" aria-labelledby="elige-especie" className="sin-barra -mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-1">
@@ -132,10 +123,8 @@ function Portada({ especies }) {
         </div>
       </div>
 
-      {/* Foto principal en forma de arco (motivo del prototipo Figma), con el rastro de huellas que llega a ella */}
       <div className="relative">
         <motion.div className="relative mx-auto w-full max-w-lg [transform-style:preserve-3d]" style={{ rotateX: giroX, rotateY: giroY, transformPerspective: 1200 }}>
-          {/* Anillos en órbita y etiquetas flotantes alrededor del arco (solo en pantallas grandes) */}
           <div className="orbita orbita-grande" aria-hidden="true" />
           <div className="orbita orbita-chica" aria-hidden="true" />
           {[
@@ -181,7 +170,6 @@ function Portada({ especies }) {
   )
 }
 
-// Pasarela que avanza sola y además se puede desplazar a mano (dedo, trackpad o arrastrando con el mouse).
 // La lista va dos veces: al pasar el ancho de una, el scroll salta atrás esa misma distancia y no se nota.
 function usePasarela(velocidad = 55) {
   const marco = useRef(null)
@@ -194,8 +182,6 @@ function usePasarela(velocidad = 55) {
     let pos = el.scrollLeft, ultimo = performance.now(), frame = 0
     let reanudar = 0, encima = false, arrastre = null, movio = false
     const esperar = ms => { reanudar = performance.now() + ms }
-
-    // Mantiene el scroll dentro de la primera vuelta; devuelve cuánto saltó
     const envolver = () => {
       const ancho = ls.offsetWidth
       if (reducir || !ancho) return 0
@@ -217,14 +203,11 @@ function usePasarela(velocidad = 55) {
       frame = requestAnimationFrame(paso)
     }
     frame = requestAnimationFrame(paso)
-
-    // Un scroll que no hizo la animación (dedo, trackpad, inercia) la detiene un momento
     const alScroll = () => {
       if (Math.abs(el.scrollLeft - pos) > 2) esperar(1500)
       const salto = envolver()
       if (arrastre) arrastre.inicio += salto
     }
-    // Arrastre con el mouse; si de verdad se movió, el clic que sigue no abre la tarjeta
     const abajo = e => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return
       arrastre = { x: e.clientX, inicio: el.scrollLeft }
@@ -271,7 +254,6 @@ function usePasarela(velocidad = 55) {
   return { marco, lista }
 }
 
-// Cifras de la clínica que cuentan al aparecer (salen de la API)
 function Cifras({ stats }) {
   const datos = [
     [stats?.especies ?? 11, 'especies atendidas', 'De perros y gatos a reptiles y peces'],
@@ -296,11 +278,9 @@ function Cifras({ stats }) {
   )
 }
 
-// Todas las especies: pasarela sobre la banda oscura
 function Especies({ especies, total }) {
   const { marco, lista } = usePasarela()
   // La copia es solo visual (inert): el teclado y los lectores de pantalla recorren una sola lista.
-  // Tarjetas de foto completa con alturas alternadas (como una ola); al pasar el mouse sube y aparece "Ver servicios"
   const tarjetas = copia => especies.map((e, n) => (
     <li key={e.slug} className={`w-60 shrink-0 md:w-72 ${n % 2 ? 'pt-10' : 'pb-10'}`}>
       <Link to={`/servicios?especie=${e.slug}`} tabIndex={copia ? -1 : undefined}
@@ -323,7 +303,6 @@ function Especies({ especies, total }) {
   const nombres = especies.map(e => e.nombre).join(' · ')
   return (
     <section className="relative overflow-hidden bg-noche py-24 text-white md:py-28">
-      {/* Texto gigante que corre detrás, en sentido contrario a la pasarela */}
       <div className="especies-fondo pointer-events-none absolute inset-x-0 bottom-6 select-none" aria-hidden="true">
         <span>{nombres} · {nombres} · </span>
       </div>
@@ -337,7 +316,6 @@ function Especies({ especies, total }) {
           Arrastra o desliza para ver todas
         </Aparecer>
       </div>
-      {/* A todo el ancho de la pantalla; se detiene con el mouse encima, al tocarla o al enfocar una tarjeta */}
       <Aparecer className="relative mt-12">
         <div ref={marco} className="pasarela-marco sin-barra" style={{ paddingLeft: 'max(1rem, calc((100% - 80rem) / 2 + 2rem))' }}>
           <div className="flex w-max">
@@ -350,12 +328,9 @@ function Especies({ especies, total }) {
   )
 }
 
-// Visítanos: horario real con el día de hoy marcado, dirección y mapa
 const DIAS = [['L', 1], ['M', 2], ['M', 3], ['J', 4], ['V', 5], ['S', 6], ['D', 0]]
 const minutosLima = () => { const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' })); return d.getHours() * 60 + d.getMinutes() }
 
-// Visítanos: mapa grande con una tarjeta flotante encima, la semana con hoy marcado
-// y una barra del día que muestra la hora actual dentro del horario de atención
 function Visitanos() {
   const estado = useEstadoClinica()
   const hoy = diaEnLima()
@@ -397,7 +372,6 @@ function Visitanos() {
           </div>
           <Estado estado={estado} className="mt-5" />
 
-          {/* Semana: hoy resaltado */}
           <ul className="mt-5 grid grid-cols-7 gap-1.5" aria-label="Días de atención">
             {DIAS.map(([letra, d], i) => {
               const esHoy = d === hoy
@@ -411,7 +385,6 @@ function Visitanos() {
           </ul>
           <p className="mt-2 text-xs text-gris">Lunes a sábado de 9:00 a 19:00 · domingo solo emergencias</p>
 
-          {/* Barra del día con la hora actual */}
           <div className="mt-6">
             <div className="flex justify-between text-xs font-semibold text-gris tabular-nums" aria-hidden="true"><span>0:00</span><span>12:00</span><span>24:00</span></div>
             <div className="relative mt-2 h-3 rounded-full bg-fondo ring-1 ring-borde" role="img"
@@ -435,7 +408,6 @@ function Visitanos() {
   )
 }
 
-// CTA final: la foto se desplaza a otro ritmo que el texto
 function Cierre() {
   const reducir = useReducedMotion()
   const ref = useRef(null)
@@ -468,7 +440,6 @@ const PASOS_RESERVA = [
 ]
 const HORAS_DEMO = [['9:00', false], ['9:40', true], ['10:20', false], ['11:00', false], ['11:40', true], ['12:20', false]]
 
-// Próximos días hábiles (lunes a sábado) con la fecha de Lima, para la vista previa
 function proximosDias(cantidad) {
   const dias = []
   const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Lima' }))
@@ -479,12 +450,10 @@ function proximosDias(cantidad) {
   return dias
 }
 
-// Vista previa del asistente de reserva (el mismo que está en /reservar), con un loro que atiende Lia
 function VistaReserva({ paso, especies, vets }) {
   const dias = useMemo(() => proximosDias(5), [])
   const mascotas = ['perro', 'gato', 'loro', 'cuy'].map(s => especies.find(e => e.slug === s)).filter(Boolean)
   const vet = vets.find(v => /aves/i.test(v.especialidad)) ?? vets[0]
-  // Dentro de cada paso, la elección se marca un instante después de que aparece
   const [elegido, setElegido] = useState(false)
   useEffect(() => { setElegido(false); const t = setTimeout(() => setElegido(true), 450); return () => clearTimeout(t) }, [paso])
 
@@ -583,8 +552,6 @@ function VistaReserva({ paso, especies, vets }) {
   )
 }
 
-// Cómo reservar: los pasos de la izquierda mueven la vista previa de la derecha. Avanza sola mientras está en pantalla;
-// al elegir un paso se queda en él un rato
 function ComoReservar({ especies, vets }) {
   const reducir = useReducedMotion()
   const ref = useRef(null)
@@ -635,8 +602,6 @@ function ComoReservar({ especies, vets }) {
 
 const duracion = min => (min < 60 ? `${min} min` : `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ''}`)
 
-// Servicios destacados: acordeón. El activo se abre y muestra qué incluye, cuánto dura y a qué especies atiende;
-// se activa al pasar el mouse, al enfocar con el teclado o al tocarlo
 function ServiciosDestacados({ servicios, especies }) {
   const [activo, setActivo] = useState(0)
   return (
@@ -645,7 +610,6 @@ function ServiciosDestacados({ servicios, especies }) {
         const abierto = n === activo
         const atiende = s.especies.map(slug => especies.find(e => e.slug === slug)).filter(Boolean)
         return (
-          // En escritorio cada panel reparte el ancho con flex-grow: el abierto vale 4.2 y los cerrados 1 (nunca menos de 110px)
           <div key={s.slug} onMouseEnter={() => setActivo(n)}
             className={`group relative flex flex-col overflow-hidden rounded-3xl bg-noche text-white md:h-full md:min-w-[110px] md:basis-0 md:transition-[flex-grow] md:duration-[420ms] md:ease-[cubic-bezier(0.32,0.72,0,1)] ${abierto ? 'min-h-[480px] md:min-h-0 md:grow-[4.2]' : 'h-24 md:grow'}`}>
             <Foto src={s.imagen} alt="" ancho={760} alto={760}
@@ -662,7 +626,6 @@ function ServiciosDestacados({ servicios, especies }) {
               </button>
             </h3>
 
-            {/* Con el panel abierto, toda la tarjeta lleva a reservar ese servicio */}
             {abierto && <Link to={`/reservar?servicio=${s.id}`} aria-label={`Reservar ${s.nombre}`} tabIndex={-1} className="absolute inset-0 z-10 cursor-pointer" />}
             <AnimatePresence initial={false}>
               {abierto && (
@@ -729,7 +692,6 @@ export default function Inicio() {
 
       <EscenaEspecies especies={especies.datos ?? []} servicios={servicios.datos ?? []} vets={vets.datos ?? []} />
 
-      {/* Servicios destacados (composición asimétrica) */}
       <section className="mx-auto max-w-7xl px-4 pt-28 md:px-8 md:pt-36">
         <Aparecer className="grid gap-4 md:grid-cols-2 md:items-end">
           <h2 className="max-w-lg text-5xl font-semibold md:text-6xl">Lo que hacemos por tu mascota</h2>
@@ -744,14 +706,12 @@ export default function Inicio() {
 
       <ComoReservar especies={especies.datos ?? []} vets={vets.datos ?? []} />
 
-      {/* Productos */}
       {productos.mostrarCarga && <div className="mx-auto mt-28 max-w-7xl px-4 md:px-8"><Esqueleto cantidad={1} className="h-[560px]" /></div>}
       <MasPedidos productos={productos.datos?.items ?? []} onVer={setDetalle} onAgregar={agregarConAviso} />
 
       <FraseScroll texto="Un loro esconde el dolor. Un cuy deja de comer. Un gato se esconde. Cada especie avisa a su manera, y aquí aprendimos a leer cada señal."
         fotos={Object.fromEntries(['loro', 'cuy', 'gato'].map(s => [s, especies.datos?.find(e => e.slug === s)?.imagen]))} />
 
-      {/* Equipo: retratos en arco, como la foto de la portada */}
       <section className="mx-auto max-w-7xl px-4 pt-28 md:px-8 md:pt-36">
         <Aparecer className="mx-auto max-w-2xl text-center">
           <h2 className="text-5xl font-semibold md:text-6xl">Especialistas para cada caso</h2>

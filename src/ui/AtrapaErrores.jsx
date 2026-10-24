@@ -1,7 +1,5 @@
 import { Component } from 'react'
 
-// Si algún componente falla, muestra un mensaje claro (sin código técnico)
-// y permite copiar los detalles para soporte.
 export default class AtrapaErrores extends Component {
   state = { error: null, copiado: false }
 

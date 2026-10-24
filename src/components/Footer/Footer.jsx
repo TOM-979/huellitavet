@@ -12,12 +12,10 @@ const COLUMNAS = [
 ]
 
 export default function Footer() {
-  // Inicio ya cierra con su propio llamado a reservar
   const enInicio = useLocation().pathname === '/'
   return (
     <footer className="pie mt-28 text-[#D5E4E7] md:mt-36">
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-8">
-        {/* Llamado final */}
         {!enInicio && <Aparecer className="flex flex-col gap-6 border-b border-white/10 py-14 md:flex-row md:items-end md:justify-between md:py-16">
           <div>
             <p className="font-display text-4xl font-semibold text-white md:text-5xl">Tu mascota en buenas manos</p>
@@ -56,8 +54,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* El nombre en gigante, como cierre */}
-      {/* Al pasar el cursor, el nombre se enciende con un foco de luz que lo sigue */}
       <div className="pie-gigante-marco relative z-10" aria-hidden="true"
         onPointerMove={e => { const r = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty('--gx', `${e.clientX - r.left}px`); e.currentTarget.style.setProperty('--gy', `${e.clientY - r.top}px`) }}>
         <p className="pie-gigante">HuellitaVet</p>

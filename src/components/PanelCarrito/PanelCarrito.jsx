@@ -14,7 +14,7 @@ import { soles } from '../../lib/formato.js'
 
 export default function PanelCarrito() {
   const { items, cambiar, quitar, restaurar, vaciar, cantidad, total, abierto, setAbierto } = useCarrito()
-  const [paso, setPaso] = useState('carrito') // carrito | datos | listo
+  const [paso, setPaso] = useState('carrito')
   const [datos, setDatos] = useState({ nombre: '', telefono: '' })
   const [errores, setErrores] = useState({})
   const [error, setError] = useState('')

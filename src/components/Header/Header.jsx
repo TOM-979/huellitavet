@@ -17,8 +17,8 @@ const ENLACES = [
 ]
 
 export default function Header() {
-  const [menu, setMenu] = useState(false)          // menú hamburguesa
-  const [conFondo, setConFondo] = useState(false)  // fondo al bajar
+  const [menu, setMenu] = useState(false)
+  const [conFondo, setConFondo] = useState(false)
   const { cantidad, setAbierto, pulso } = useCarrito()
   const { pathname } = useLocation()
 
@@ -31,7 +31,6 @@ export default function Header() {
   }, [])
 
   return (
-    // Al bajar, la barra se despega del borde y queda flotando con desenfoque (en el celular solo toma fondo)
     <header className="sticky top-0 z-40 w-full md:px-4">
       <div className={`mx-auto flex h-18 max-w-7xl items-center justify-between border-b px-4 transition-[margin,max-width,height,padding,background-color,box-shadow,border-color,border-radius] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] md:px-8
         ${conFondo || menu ? 'border-borde bg-superficie/85 shadow-suave backdrop-blur-xl md:mt-3 md:h-16 md:max-w-6xl md:rounded-full md:border md:px-4 md:shadow-flotante' : 'border-transparent'}`}>

@@ -5,7 +5,6 @@ import { Huella } from './Logo.jsx'
 const EASE = [0.23, 1, 0.32, 1]
 const VISTA = { once: true, margin: '0px 0px -12% 0px' }
 
-// Entrada al hacer scroll: sube y aparece una sola vez cuando el bloque entra en pantalla
 export function Aparecer({ as = 'div', retraso = 0, distancia = 24, className = '', children, ...props }) {
   const M = motion[as]
   return (
@@ -18,8 +17,6 @@ export function Aparecer({ as = 'div', retraso = 0, distancia = 24, className = 
   )
 }
 
-// Rastro de huellitas (el motivo del logo): aparecen paso a paso, alternando pie izquierdo y derecho.
-// giro: hacia dónde camina, en grados (0 = hacia arriba)
 export function Rastro({ pasos = 4, giro = 0, separacion = 26, tamano = 16, retraso = 0, className = '' }) {
   return (
     <span aria-hidden="true" className={`pointer-events-none block ${/\babsolute\b/.test(className) ? '' : 'relative'} ${className}`}
@@ -38,7 +35,6 @@ export function Rastro({ pasos = 4, giro = 0, separacion = 26, tamano = 16, retr
   )
 }
 
-// Número que cuenta desde 0 hasta su valor cuando entra en pantalla (con movimiento reducido, aparece directo)
 export function Contador({ valor, className = '' }) {
   const ref = useRef(null)
   const enVista = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
@@ -52,7 +48,6 @@ export function Contador({ valor, className = '' }) {
   return <span ref={ref} className={`tabular-nums ${className}`}>{n}</span>
 }
 
-// Título que entra palabra por palabra; las palabras de "destacado" llevan el degradado de la marca
 export function TituloAnimado({ as = 'h1', texto, destacado = '', className = '' }) {
   const Tag = as
   const marca = new Set(destacado.split(' ').filter(Boolean))

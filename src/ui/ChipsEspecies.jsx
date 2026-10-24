@@ -1,7 +1,6 @@
 import { motion } from 'motion/react'
 import Foto from './Foto.jsx'
 
-// Filtro de especies con foto. "valor" vacío = todas.
 export default function ChipsEspecies({ especies, valor, onCambiar, idGrupo, etiqueta = 'Filtrar por especie' }) {
   const opciones = [{ slug: '', nombre: 'Todas' }, ...especies]
   return (

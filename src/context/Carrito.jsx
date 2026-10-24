@@ -5,13 +5,12 @@ const Ctx = createContext(null)
 const CLAVE = 'huellitavet-carrito-v3'
 
 export function CarritoProvider({ children }) {
-  // Estado del carrito: [{ producto, cantidad }]
   const [items, setItems] = useState(() => {
     const g = leerLocal(CLAVE, [])
     return Array.isArray(g) ? g.filter(i => i?.producto?.id && i.cantidad > 0) : []
   })
   const [abierto, setAbierto] = useState(false)
-  const [pulso, setPulso] = useState(0) // cambia en cada agregado para animar el ícono
+  const [pulso, setPulso] = useState(0)
 
   useEffect(() => guardarLocal(CLAVE, items), [items])
 

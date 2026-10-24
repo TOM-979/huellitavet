@@ -1,5 +1,3 @@
-// Patrón: ruta de marketing «Product listing»: título → búsqueda y filtros → productos → paginación
-// La búsqueda, los filtros, el orden y la paginación se resuelven en el backend (SQL).
 import './Tienda.css'
 import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -59,7 +57,6 @@ export default function Tienda() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [texto])
   useEffect(() => guardarLocal('huellitavet-orden', orden), [orden])
-  // Atajo: «/» enfoca la búsqueda
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) { e.preventDefault(); buscador.current?.focus() }
@@ -92,7 +89,6 @@ export default function Tienda() {
         lado={destacados.datos?.items?.length ? <Abanico productos={destacados.datos.items} onVer={setDetalle} /> : null} />
 
       <div className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[270px_minmax(0,1fr)] lg:gap-10">
-        {/* Filtros: barra lateral fija en escritorio; arriba y deslizable en el celular */}
         <Aparecer as="aside" retraso={0.15} aria-label="Filtros de la tienda" className="lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-[32px] bg-superficie/80 p-4 ring-1 ring-borde backdrop-blur-sm lg:p-5">
             <label htmlFor="buscar" className="mb-2 flex items-center justify-between gap-2 px-1 text-sm font-semibold">
@@ -104,7 +100,6 @@ export default function Tienda() {
                 className="min-h-12 w-full rounded-full border border-borde bg-fondo pl-11 pr-4 text-base outline-none focus:border-primario-oscuro focus:ring-4 focus:ring-primario/15" />
             </div>
 
-            {/* Especie */}
             <p id="filtro-especie" className="mb-2 mt-5 px-1 text-sm font-semibold">Especie</p>
             <div className="lg:hidden"><ChipsEspecies especies={especies.datos ?? []} valor={especie} onCambiar={(v) => cambiar({ especie: v })} idGrupo="tienda" etiqueta="Filtrar productos por especie" /></div>
             <div role="radiogroup" aria-labelledby="filtro-especie" className="hidden max-h-[22rem] space-y-0.5 overflow-y-auto pr-1 lg:block">
@@ -124,7 +119,6 @@ export default function Tienda() {
               })}
             </div>
 
-            {/* Categoría */}
             <p id="filtro-categoria" className="mb-2 mt-5 px-1 text-sm font-semibold">Categoría</p>
             <div role="radiogroup" aria-labelledby="filtro-categoria" className="sin-barra -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:block lg:space-y-0.5 lg:px-0">
               {[{ slug: '', nombre: 'Todas' }, ...(categorias.datos ?? [])].map(c => {
@@ -143,7 +137,6 @@ export default function Tienda() {
           </div>
         </Aparecer>
 
-        {/* Resultados */}
         <div className="min-w-0">
           <div ref={inicioLista} className="flex scroll-mt-28 flex-wrap items-center justify-between gap-3">
             <div>
@@ -192,7 +185,6 @@ export default function Tienda() {
             </motion.div>
           )}
 
-          {/* Paginación */}
           {res && res.paginas > 1 && (
             <nav aria-label="Paginación" className="mt-12 flex flex-wrap items-center justify-center gap-2">
               <Boton variante="contorno" tamano="sm" onClick={() => irPagina(pagina - 1)} disabled={pagina <= 1}><ChevronLeft size={16} aria-hidden="true" />Anterior</Boton>

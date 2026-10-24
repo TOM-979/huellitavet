@@ -1,4 +1,3 @@
-// Patrón: ruta de marketing «Contact»: formulario corto + tarjetas de información + mapa + preguntas frecuentes
 import './Contacto.css'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -21,7 +20,6 @@ const PREGUNTAS = [
   ['¿Puedo cancelar o cambiar mi cita?', 'Sí, hasta 2 horas antes. Escríbenos por WhatsApp con tu código de reserva.'],
 ]
 
-// Campo con etiqueta flotante: la etiqueta sube y se achica al escribir o enfocar
 function Campo({ id, etiqueta, valor, onCambiar, onSalir, error, tipo = 'text', multilinea, autoComplete, maximo }) {
   const [foco, setFoco] = useState(false)
   const arriba = foco || valor.length > 0
@@ -56,7 +54,7 @@ const validar = (c, v) => {
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: '', correo: '', asunto: 'Consulta', mensaje: '' })
   const [errores, setErrores] = useState({})
-  const [estado, setEstado] = useState('listo') // listo | enviando | enviado
+  const [estado, setEstado] = useState('listo')
   const [error, setError] = useState('')
   const [clinica, setClinica] = useState(estadoClinica)
   const enviando = useRef(false)
@@ -84,7 +82,6 @@ export default function Contacto() {
   return (
     <div className="mx-auto max-w-7xl px-4 pt-10 md:px-8">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-        {/* Columna de información */}
         <div>
           <p className="inline-flex items-center gap-2 rounded-full bg-superficie px-3 py-2 text-sm font-semibold ring-1 ring-borde" role="status">
             <span className="relative flex h-2.5 w-2.5">
@@ -118,7 +115,6 @@ export default function Contacto() {
           </div>
         </div>
 
-        {/* Formulario */}
         <Aparecer retraso={0.2} className="rounded-[32px] bg-superficie p-6 shadow-flotante ring-1 ring-borde md:p-10">
           <AnimatePresence mode="wait" initial={false}>
             {estado === 'enviado' ? (
@@ -158,7 +154,6 @@ export default function Contacto() {
                 <Campo id="contacto-mensaje" etiqueta="¿En qué te ayudamos?" multilinea maximo={600} valor={form.mensaje} onCambiar={v => cambiar('mensaje', v)} onSalir={() => setErrores(e => ({ ...e, mensaje: validar('mensaje', form.mensaje) }))} error={errores.mensaje} />
                 {error && <p role="alert" className="rounded-2xl bg-error-fondo p-4 text-sm text-error-texto">{error}</p>}
 
-                {/* Botón que cambia de estado: enviar → enviando → enviado */}
                 <button type="submit" className="presionable relative flex min-h-14 w-full items-center justify-center overflow-hidden rounded-full bg-secundario font-semibold text-noche hover:bg-secundario-hover">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span key={estado} className="flex items-center gap-2"
@@ -179,7 +174,6 @@ export default function Contacto() {
         </Aparecer>
       </div>
 
-      {/* Mapa con la dirección encima */}
       <Aparecer as="section" className="relative mt-16 overflow-hidden rounded-[36px] ring-1 ring-borde" aria-label="Mapa de la clínica">
         <iframe title={`Mapa: ${CLINICA.direccionLima}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade"
           src={`${CLINICA.mapa}&output=embed`} className="mapa h-80 w-full border-0 bg-primario-claro md:h-[420px]" />
@@ -191,7 +185,6 @@ export default function Contacto() {
         </div>
       </Aparecer>
 
-      {/* Preguntas frecuentes: se abre la que tiene el cursor (o el foco) y se cierra la anterior */}
       <section className="mt-24 grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16" aria-labelledby="faq-titulo">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <Aparecer as="h2" id="faq-titulo" className="text-4xl font-semibold md:text-5xl">Preguntas frecuentes</Aparecer>

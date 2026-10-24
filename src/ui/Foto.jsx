@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { PawPrint } from 'lucide-react'
 import { foto, srcSet } from '../lib/foto.js'
 
-// Imagen real con aparición suave al cargar y respaldo si falla la conexión
 export default function Foto({ src, alt, ancho = 600, alto, className = '', prioridad = false, ...props }) {
   const [estado, setEstado] = useState('cargando')
   if (!src || estado === 'error') {

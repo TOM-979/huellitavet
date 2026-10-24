@@ -1,4 +1,3 @@
-// Patrón: ruta de marketing «Product listing» (servicios): título → filtros → lista editorial por tipo → información
 import './Servicios.css'
 import { useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -31,7 +30,6 @@ export default function Servicios() {
   }
   const nombreEspecie = especies.datos?.find(e => e.slug === especie)?.nombre
   const lista = servicios.datos ?? []
-  // Agrupados por tipo, en el orden de CATEGORIAS
   const grupos = CATEGORIAS.map(c => [c, lista.filter(s => s.categoria === c)]).filter(([, l]) => l.length)
 
   return (
@@ -40,7 +38,6 @@ export default function Servicios() {
         descripcion="Desde la consulta general hasta medicina de aves y exóticos. Elige a tu mascota y te mostramos lo que podemos hacer por ella."
         datos={[[stats.datos?.servicios ?? 16, 'servicios'], [stats.datos?.especies ?? 11, 'especies'], [stats.datos?.veterinarios ?? 4, 'especialistas'], ['24 h', 'emergencias']]} />
 
-      {/* Filtros: especie y tipo de servicio */}
       <Aparecer retraso={0.2} className="filtros mt-10 rounded-[32px] bg-superficie/80 p-4 ring-1 ring-borde backdrop-blur-sm md:p-5">
         <p className="mb-3 px-1 text-sm font-semibold text-gris">¿Para quién es la consulta?</p>
         <ChipsEspecies especies={especies.datos ?? []} valor={especie} onCambiar={(v) => cambiar('especie', v)} idGrupo="servicios" />
@@ -79,7 +76,6 @@ export default function Servicios() {
         <ListaServicios grupos={grupos} especies={especies.datos ?? []} />
       )}
 
-      {/* Información de atención */}
       <Aparecer as="section" aria-label="Información de atención" className="relative mt-24 overflow-hidden rounded-[40px] bg-noche p-8 text-white md:p-12">
         <div className="grid gap-10 md:grid-cols-3 md:gap-0 md:divide-x md:divide-white/10">
           {[
@@ -103,8 +99,6 @@ export default function Servicios() {
   )
 }
 
-// Lista editorial: el nombre del tipo queda fijo a la izquierda; cada servicio es una fila.
-// Con mouse, una vista previa de la foto sigue al cursor; al hacer clic la fila se abre y muestra qué incluye.
 function ListaServicios({ grupos, especies }) {
   const reducir = useReducedMotion()
   const caja = useRef(null)
@@ -122,7 +116,6 @@ function ListaServicios({ grupos, especies }) {
 
   return (
     <div ref={caja} className="relative mt-6" onPointerMove={mover} onPointerLeave={() => setEncima(null)}>
-      {/* Vista previa que sigue al cursor */}
       {!reducir && (
         <motion.div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 z-30 hidden h-44 w-64 overflow-hidden rounded-3xl shadow-flotante ring-1 ring-borde lg:block"
           style={{ x: sx, y: sy }}

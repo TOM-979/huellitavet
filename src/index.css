@@ -2,9 +2,6 @@
 @import "@fontsource-variable/bricolage-grotesque";
 @import "@fontsource-variable/instrument-sans";
 
-/* =========================================================
-   Sistema de diseño HuellitaVet · colores del prototipo Figma
-   ========================================================= */
 @theme {
   --color-primario: #2A9D8F;          /* fondos, íconos, bordes */
   --color-primario-oscuro: #1E786E;   /* texto verde y botones (5.3:1) */
@@ -97,19 +94,16 @@ p { text-wrap: pretty; }
 }
 }
 
-/* Botones: respuesta inmediata al presionar */
 .presionable {
   transition: transform 160ms var(--ease-salida), background-color 150ms ease, border-color 150ms ease;
 }
 .presionable:active:not(:disabled) { transform: scale(0.97); }
 
-/* Zoom de fotos solo con mouse */
 @media (hover: hover) and (pointer: fine) {
   .zoom-foto img { transition: transform 300ms var(--ease-salida); }
   .zoom-foto:hover img { transform: scale(1.04); }
 }
 
-/* Barra de desplazamiento oculta en carruseles horizontales */
 .sin-barra { scrollbar-width: none; }
 .sin-barra::-webkit-scrollbar { display: none; }
 
@@ -132,11 +126,6 @@ p { text-wrap: pretty; }
   mix-blend-mode: normal;
 }
 
-/* =========================================================
-   Ambiente (todas las páginas)
-   ========================================================= */
-
-/* Fondo: aureolas suaves de los colores de la marca y una retícula fina que se desvanece */
 body {
   background:
     radial-gradient(900px 620px at 92% -8%, rgba(244, 162, 97, 0.16), transparent 60%),
@@ -171,7 +160,6 @@ body::before {
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
-/* Luz que sigue al cursor dentro de una tarjeta (la posición la pone App.jsx en --mx / --my) */
 /* En la capa de componentes para que las utilidades (absolute, etc.) puedan cambiar la posición */
 @layer components {
   .foco { position: relative; isolation: isolate; }
@@ -194,13 +182,11 @@ body::before {
   .foco:hover::after { opacity: 1; }
 }
 
-/* Elevación al pasar el mouse por una tarjeta */
 @media (hover: hover) and (pointer: fine) {
   .elevable { transition: transform 300ms var(--ease-salida), box-shadow 300ms var(--ease-salida); }
   .elevable:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(38, 70, 83, 0.12); }
 }
 
-/* Texto con el degradado de la marca (solo palabras destacadas) */
 .texto-marca {
   background: linear-gradient(100deg, var(--color-acento) 15%, var(--color-primario) 85%);
   -webkit-background-clip: text;
@@ -208,7 +194,6 @@ body::before {
   color: transparent;
 }
 
-/* Estela de huellitas del mouse (ui/Ambiente.jsx) */
 .huella-estela {
   position: absolute;
   left: 0;

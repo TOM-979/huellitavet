@@ -1,8 +1,5 @@
 import { Aparecer, Contador, Rastro, TituloAnimado } from './Movimiento.jsx'
 
-// Cabecera de las páginas internas: título que entra palabra por palabra, descripción y cifras reales
-// datos: [[número, 'etiqueta'], ...]; si el número es texto (por ejemplo '24 h') se muestra tal cual
-// lado: elemento opcional a la derecha en pantallas grandes (por ejemplo, el abanico de la tienda)
 export default function CabeceraPagina({ titulo, destacado, descripcion, datos = [], lado, children }) {
   return (
     <header className={`relative pb-4 pt-6 md:pt-12 ${lado ? 'lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-10' : ''}`}>

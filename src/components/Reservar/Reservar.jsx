@@ -1,4 +1,3 @@
-// Patrón: Form (wizard): elegir mascota → servicio → fecha y hora → datos → confirmación
 import './Reservar.css'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -55,19 +54,14 @@ export default function Reservar() {
   const serviciosEspecie = useMemo(() => (todos.datos ?? []).filter(s => !form.especie || s.especies.includes(form.especie)), [todos.datos, form.especie])
   const servicio = todos.datos?.find(s => String(s.id) === String(form.servicioId))
 
-  // Borrador automático (sin teléfono ni correo)
   useEffect(() => {
     if (cita) return
     const { telefono, correo, ...resto } = form
     guardarLocal(BORRADOR, resto)
   }, [form, cita])
-
-  // Si el servicio elegido no atiende a esa especie, se limpia
   useEffect(() => {
     if (servicio && form.especie && !servicio.especies.includes(form.especie)) setForm(f => ({ ...f, servicioId: '' }))
   }, [form.especie, servicio])
-
-  // Horarios disponibles según la fecha (desde la base de datos)
   useEffect(() => {
     if (!form.fecha) return
     let activo = true
@@ -129,7 +123,6 @@ export default function Reservar() {
         descripcion="Cuatro pasos y listo. Te asignamos al especialista que corresponde a tu mascota."
         datos={[[4, 'pasos'], [stats.datos?.veterinarios ?? 4, 'especialistas'], ['S/ 0', 'de adelanto: pagas en la clínica']]} />
 
-      {/* Progreso */}
       <ol className="mt-10 grid grid-cols-4 gap-2" aria-label="Pasos de la reserva">
         {PASOS.map((p, n) => (
           <li key={p}>
@@ -278,7 +271,6 @@ export default function Reservar() {
           </div>
         </form>
 
-        {/* Resumen en vivo */}
         <aside className="overflow-hidden rounded-[32px] bg-noche text-white lg:sticky lg:top-24" aria-label="Resumen de la cita">
           <div className="relative h-40">
             <AnimatePresence initial={false}>

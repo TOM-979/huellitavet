@@ -20,7 +20,6 @@ function Contenido({ onCerrar, titulo, children }) {
   )
 }
 
-// Panel lateral (carrito). Entra con la curva de cajón de iOS y sale más rápido.
 export default function Cajon({ abierto, onCerrar, titulo, children }) {
   return <AnimatePresence>{abierto && <Contenido onCerrar={onCerrar} titulo={titulo}>{children}</Contenido>}</AnimatePresence>
 }

@@ -23,7 +23,6 @@ async function pedir(ruta, opciones = {}) {
   return datos
 }
 
-// Estado de la conexión (para mostrar el aviso de modo demostración)
 export let modoDemo = false
 const oyentes = new Set()
 export const alCambiarModo = (fn) => { oyentes.add(fn); return () => oyentes.delete(fn) }
@@ -40,7 +39,6 @@ async function conRespaldo(fn, respaldo) {
   }
 }
 
-// ---------- Catálogo ----------
 export const getEspecies = () => conRespaldo(() => pedir('/especies'), () => catalogo.especies)
 export const getCategorias = () => conRespaldo(() => pedir('/categorias'), () => catalogo.categorias)
 export const getVeterinarios = () => conRespaldo(() => pedir('/veterinarios'), () => catalogo.veterinarios)

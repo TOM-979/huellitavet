@@ -16,8 +16,6 @@ function aplicar(tema) {
 export default function BotonTema() {
   const [tema, setTema] = useState(leerTema)
   const oscuro = tema === 'dark'
-
-  // Sin elección guardada, sigue al sistema si este cambia
   useEffect(() => {
     const consulta = window.matchMedia('(prefers-color-scheme: dark)')
     const alCambiar = e => {

@@ -1,4 +1,3 @@
-// Escenas de scroll de Inicio: la escena fija por especies y la frase que se ilumina al bajar
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { Link } from 'react-router-dom'
@@ -8,7 +7,6 @@ import Boton from '../../ui/Boton.jsx'
 
 const EASE = [0.23, 1, 0.32, 1]
 
-// Un capítulo por grupo de especies del catálogo; los servicios salen de sus slugs
 const CAPITULOS = [
   { grupo: 'Mamíferos', titulo: 'Perros y gatos', texto: 'Vacunas al día, limpieza dental y cirugía con monitoreo. Los gatos se atienden en un consultorio cat-friendly, sin ladridos.', servicios: ['vacunacion', 'dental', 'cirugia'], vet: /felina/i, estado: 'Preparando la consulta' },
   { grupo: 'Aves', titulo: 'Loros y periquitos', texto: 'Revisión de plumaje, pico y buche con instrumental del tamaño adecuado y una especialista en aves.', servicios: ['aves', 'unas-pico', 'nutricion'], vet: /aves/i, estado: 'Revisando plumaje' },
@@ -16,14 +14,10 @@ const CAPITULOS = [
   { grupo: 'Acuáticos', titulo: 'Peces', texto: 'Análisis de laboratorio, plan de nutrición y teleconsulta para cuidar tu acuario sin moverlo de casa.', servicios: ['laboratorio', 'nutricion', 'teleconsulta'], vet: null, estado: 'Analizando el agua' },
 ]
 
-// Escena fija: la sección se queda en pantalla mientras bajas y avanza capítulo por capítulo.
-// A la derecha se arma la ficha de cada grupo con su barra de avance.
-// Una vez recorrida completa, deja de ser fija: al volver a subir no hay que pasar otra vez por los capítulos.
 export function EscenaEspecies({ especies, servicios, vets }) {
   const ref = useRef(null)
   const reducir = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  // El avance sigue al scroll con un resorte, para que los cambios no se sientan bruscos
   const suave = useSpring(scrollYProgress, { stiffness: 90, damping: 24, restDelta: 0.0005 })
   const [cap, setCap] = useState(0)
   const [avance, setAvance] = useState(reducir ? 1 : 0)
@@ -49,7 +43,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
     if (diferencia > 0 && el.getBoundingClientRect().top < 0) window.scrollBy({ top: -diferencia, behavior: 'instant' })
   }, [vista])
 
-  // Los botones de abajo llevan a cada capítulo (con la escena ya vista, solo la cambian)
   const ir = i => {
     if (vista) { setCap(i); setAvance(1); return }
     const el = ref.current
@@ -57,10 +50,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
     const recorrido = el.offsetHeight - window.innerHeight
     window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + recorrido * ((i + 0.05) / N), behavior: 'smooth' })
   }
-
-  // Avance automático: con la escena fija en pantalla, el scroll baja solo y despacio,
-  // así cada ficha se construye poco a poco (0 → 100 %) antes de pasar a la siguiente.
-  // Si la persona usa rueda, dedo o teclado, se detiene y retoma cuando deja de moverse.
   const manual = useRef(0)
   useEffect(() => {
     if (vista || reducir) return
@@ -79,7 +68,7 @@ export function EscenaEspecies({ especies, servicios, vets }) {
       if (!fija || Date.now() - manual.current < 2200) { pos = null; return }
       const recorrido = el.offsetHeight - window.innerHeight
       if (pos === null || Math.abs(pos - window.scrollY) > 3) pos = window.scrollY
-      pos += (recorrido / (N * 6)) * dt // ~6 s por capítulo
+      pos += (recorrido / (N * 6)) * dt
       window.scrollTo({ top: pos, behavior: 'instant' })
     }
     raf = requestAnimationFrame(t => { antes = t; raf = requestAnimationFrame(paso) })
@@ -96,7 +85,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
     <section ref={ref} className="relative mt-24" style={{ height: vista ? 'auto' : `${N * 60 + 25}vh` }} aria-label="Cómo cuidamos a cada especie">
       <div className={`flex flex-col justify-start overflow-hidden pb-6 pt-24 md:justify-center md:py-20 ${vista ? 'min-h-svh' : 'sticky top-0 h-svh'}`}>
         <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-14 md:px-8">
-          {/* Texto del capítulo */}
           <div className="min-w-0">
             <p className="flex items-baseline gap-3 font-display font-semibold text-acento" aria-hidden="true">
               <span className="text-4xl tabular-nums md:text-6xl">{String(cap + 1).padStart(2, '0')}</span>
@@ -126,7 +114,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
             </AnimatePresence>
           </div>
 
-          {/* Ficha que se arma */}
           <div className="relative [perspective:1400px]">
             <div className="escena-ficha relative rounded-[28px] bg-superficie p-4 shadow-flotante ring-1 ring-borde md:p-6"
               style={{ transform: reducir ? 'none' : `rotateY(${-7 + avance * 5}deg) rotateX(${3 - avance * 2}deg)` }}>
@@ -157,7 +144,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
                 )}
               </div>
             </div>
-            {/* Barra de avance, como un proceso que corre */}
             <div className="mt-5 flex items-center gap-3 text-sm font-semibold" aria-hidden="true">
               <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${pct === 100 ? 'bg-primario' : 'bg-secundario motion-safe:animate-pulse'}`} />
               <span className="shrink-0">{pct === 100 ? 'Lista para tu visita' : c.estado}</span>
@@ -169,7 +155,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
           </div>
         </div>
 
-        {/* Capítulos */}
         <div className="mx-auto mt-8 flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-4 md:mt-12 md:px-8">
           <nav aria-label="Capítulos" className="sin-barra -mx-1 flex gap-1 overflow-x-auto px-1">
             {CAPITULOS.map((x, i) => (
@@ -186,9 +171,6 @@ export function EscenaEspecies({ especies, servicios, vets }) {
   )
 }
 
-// Frase grande que se ilumina palabra por palabra a medida que bajas.
-// Junto a cada especie nombrada aparece su foto; al final, la firma y un enlace.
-// fotos: { palabra: url } (por ejemplo { loro: '...', cuy: '...', gato: '...' })
 export function FraseScroll({ texto, fotos = {} }) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.85', 'end 0.5'] })
@@ -197,7 +179,6 @@ export function FraseScroll({ texto, fotos = {} }) {
   const firmaY = useTransform(scrollYProgress, [0.85, 1], [12, 0])
   return (
     <section className="relative mx-auto max-w-5xl px-4 pt-28 md:px-8 md:pt-40">
-      {/* Comillas gigantes de fondo */}
       <span className="pointer-events-none absolute -top-2 left-0 select-none font-display text-[12rem] leading-none text-primario/10 md:-left-10 md:top-10 md:text-[16rem]" aria-hidden="true">“</span>
       <p ref={ref} className="relative font-display text-3xl font-semibold leading-[1.25] md:text-5xl md:leading-[1.2]">
         <span className="sr-only">{texto}</span>
@@ -225,7 +206,6 @@ export function FraseScroll({ texto, fotos = {} }) {
 
 function Palabra({ progreso, rango, foto, children }) {
   const opacidad = useTransform(progreso, rango, [0.15, 1])
-  // La foto aparece cuando la palabra ya se iluminó
   const escala = useTransform(progreso, [rango[1] - 0.02, rango[1] + 0.06], [0.4, 1])
   const visible = useTransform(progreso, [rango[1] - 0.02, rango[1] + 0.06], [0, 1])
   return (

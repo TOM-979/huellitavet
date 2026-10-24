@@ -3,14 +3,12 @@ import Foto from './Foto.jsx'
 import { soles } from '../lib/formato.js'
 
 const EASE = [0.23, 1, 0.32, 1]
-// Posición de cada carta: la del centro va al frente, las de los lados se abren inclinadas
 const POSES = [
   { x: -112, y: 24, giro: -10, z: 1 },
   { x: 0, y: 0, giro: 0, z: 3 },
   { x: 112, y: 24, giro: 10, z: 2 },
 ]
 
-// Abanico de tres productos: se abre al cargar y la carta bajo el mouse sube al frente
 export default function Abanico({ productos, onVer }) {
   const reducir = useReducedMotion()
   return (

@@ -1,4 +1,3 @@
-// Fotos de escena (Unsplash) usadas fuera del catálogo
 export const IMAGEN_CTA = {
   cuidado: 'https://images.unsplash.com/photo-1770836037816-4445dbd449fd',
   perros: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b',

@@ -1,6 +1,5 @@
 import { motion } from 'motion/react'
 
-// Check que se dibuja al confirmar (indica que la acción terminó bien)
 export default function CheckAnimado({ tamano = 88 }) {
   return (
     <motion.svg width={tamano} height={tamano} viewBox="0 0 88 88" aria-hidden="true"

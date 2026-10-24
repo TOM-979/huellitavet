@@ -3,8 +3,6 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 
 import { ArrowUp } from 'lucide-react'
 import { Huella } from './Logo.jsx'
 
-// Detalles que viven en todas las páginas: línea de avance, botón "Subir",
-// luz que sigue al cursor en las tarjetas (.foco) y la estela de huellitas del mouse
 export default function Ambiente() {
   const reducir = useReducedMotion()
   const { scrollYProgress, scrollY } = useScroll()
@@ -12,8 +10,6 @@ export default function Ambiente() {
   const [subir, setSubir] = useState(false)
 
   useEffect(() => scrollY.on('change', y => setSubir(y > 700)), [scrollY])
-
-  // La tarjeta bajo el cursor recibe su posición en --mx / --my
   useEffect(() => {
     const mover = e => {
       const tarjeta = e.target.closest?.('.foco')
@@ -45,7 +41,6 @@ export default function Ambiente() {
   )
 }
 
-// El mouse va dejando huellitas que se desvanecen (solo con mouse; nunca en táctil)
 function EstelaHuellas() {
   const capa = useRef(null)
   useEffect(() => {
@@ -69,8 +64,6 @@ function EstelaHuellas() {
     window.addEventListener('pointermove', mover, { passive: true })
     return () => window.removeEventListener('pointermove', mover)
   }, [])
-
-  // El dibujo de la huella se toma del mismo SVG del logo
   const molde = useRef(null)
   useEffect(() => { if (capa.current && molde.current) capa.current.dataset.svg = molde.current.innerHTML }, [])
 

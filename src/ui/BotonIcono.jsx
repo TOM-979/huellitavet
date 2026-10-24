@@ -1,4 +1,3 @@
-// Botón cuadrado de solo ícono (44 × 44) con tooltip en hover y en foco de teclado
 export default function BotonIcono({ etiqueta, atajo, lado = 'abajo', alinear = 'centro', tono = 'suave', className = '', children, ...props }) {
   const tonos = {
     suave: 'bg-primario-claro text-tinta hover:bg-primario-claro-hover',

@@ -3,8 +3,6 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { Huella } from '../../ui/Logo.jsx'
 
-// Intro de entrada: unas huellitas cruzan la pantalla, el logo aparece en grande,
-// se escribe el nombre con un brillo y todo viaja hasta el logo del encabezado.
 const PASOS = 7
 const T = { pasos: 0.12, entrePasos: 0.11, marca: 0.95, nombre: 1.1, brillo: 1.6, vuelo: 2.15, duracionVuelo: 0.75, fin: 3.4 }
 const EASE_SALIDA = [0.23, 1, 0.32, 1]
@@ -18,7 +16,6 @@ function medir() {
   const escala = Math.min(2.6, (vw * 0.78) / r.width)
   const cx = vw / 2, cy = vh * 0.46
   const dx = cx - (r.left + r.width / 2), dy = cy - (r.top + r.height / 2)
-  // Centro de la marca (cuadrado de 40px) cuando el logo está en grande
   const marcaX = cx - (r.width / 2 - 20) * escala
   // Camino curvo de las huellas: desde abajo a la izquierda hasta la marca.
   // En pantallas angostas no hay espacio a la izquierda, así que suben desde abajo.
@@ -31,7 +28,7 @@ function medir() {
     : { x: marcaX - 30 * escala, y: cy + 14 * escala }
   const curva = angosta ? 36 : 60
   const cuerdaX = fin.x - inicio.x, cuerdaY = fin.y - inicio.y, largo = Math.hypot(cuerdaX, cuerdaY)
-  const nx = cuerdaY / largo, ny = -cuerdaX / largo // normal hacia el lado de la curva
+  const nx = cuerdaY / largo, ny = -cuerdaX / largo
   const huellas = Array.from({ length: PASOS }, (_, i) => {
     const t = i / (PASOS - 1)
     const arco = Math.sin(t * Math.PI) * curva
@@ -51,14 +48,13 @@ function medir() {
 
 export default function IntroLogo() {
   const [geo, setGeo] = useState(null)
-  const [fase, setFase] = useState('entrada') // entrada → vuelo → listo
+  const [fase, setFase] = useState('entrada')
   const reducido = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   useLayoutEffect(() => {
     if (reducido) return
     document.documentElement.classList.add('intro-activa')
     let vivo = true
-    // Espera a las fuentes para medir el logo con su ancho real
     Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 700))]).then(() => { if (vivo) setGeo(medir()) })
     return () => { vivo = false; document.documentElement.classList.remove('intro-activa') }
   }, [reducido])
@@ -79,8 +75,6 @@ export default function IntroLogo() {
     const r2 = document.querySelector('[data-logo-destino]')?.getBoundingClientRect()
     if (r2) setLlegada({ x: r2.left - geo.r.left, y: r2.top - geo.r.top })
   }, [fase, geo])
-
-  // Al posarse, se queda solo el logo real del encabezado y el pulso se dibuja sobre él
   const [anillo, setAnillo] = useState(null)
   useLayoutEffect(() => {
     if (fase !== 'listo') return
@@ -89,7 +83,6 @@ export default function IntroLogo() {
     if (marca) setAnillo({ left: marca.left, top: marca.top, width: marca.width, height: marca.height })
   }, [fase])
 
-  // Saltar con clic, toque o tecla
   useEffect(() => {
     if (fase !== 'entrada' || !geo) return
     const saltar = () => setFase('vuelo')
@@ -118,7 +111,6 @@ export default function IntroLogo() {
         initial={{ opacity: 1 }} animate={{ opacity: volando ? 0 : 1 }}
         transition={{ duration: 0.5, ease: EASE_SALIDA, delay: volando ? 0.1 : 0 }} />
 
-      {/* Huellitas caminando: aparecen paso a paso y se desvanecen dejando un rastro */}
       {!volando && huellas.map((h, i) => (
         <motion.span key={i} className="absolute left-0 top-0 text-primario"
           style={{ width: tam, height: tam, marginLeft: -tam / 2, marginTop: -tam / 2 }}
@@ -132,14 +124,12 @@ export default function IntroLogo() {
         </motion.span>
       ))}
 
-      {/* Pulso al posarse, encima del logo real del encabezado */}
       {anillo && (
         <motion.span className="absolute rounded-2xl ring-2 ring-secundario" style={anillo}
           initial={{ opacity: 0.9, transform: 'scale(1)' }} animate={{ opacity: 0, transform: 'scale(1.7)' }}
           transition={{ duration: 0.6, ease: EASE_SALIDA }} />
       )}
 
-      {/* El logo, con las mismas medidas que el del encabezado, escalado al centro */}
       {fase !== 'listo' && <motion.div className="absolute flex items-center gap-2.5"
         style={{ left: r.left, top: r.top, height: r.height, transformOrigin: 'center' }}
         initial={{ transform: grande }}
@@ -157,7 +147,6 @@ export default function IntroLogo() {
             transition={volando ? { duration: 0 } : { duration: 0.55, ease: EASE_SALIDA, delay: T.nombre }}>
             HuellitaVet
           </motion.span>
-          {/* Brillo que recorre el nombre */}
           {!volando && (
             <motion.span className="intro-brillo absolute inset-0" aria-hidden="true"
               initial={{ maskPosition: '150% 0' }} animate={{ maskPosition: '-50% 0' }}

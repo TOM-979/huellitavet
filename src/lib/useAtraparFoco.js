@@ -2,8 +2,6 @@ import { useEffect } from 'react'
 
 const ENFOCABLES = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-// Mantiene el foco dentro de un panel abierto, cierra con Escape
-// y devuelve el foco al elemento que lo abrió.
 export function useAtraparFoco(ref, abierto, onCerrar) {
   useEffect(() => {
     if (!abierto) return

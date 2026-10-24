@@ -1,4 +1,3 @@
-// Arma la URL de Unsplash con el tamaño exacto que se necesita (carga rápida)
 export function foto(url, ancho = 800, alto) {
   if (!url) return ''
   const sep = url.includes('?') ? '&' : '?'

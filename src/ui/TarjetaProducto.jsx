@@ -2,8 +2,6 @@ import { Eye, Plus, Star } from 'lucide-react'
 import Foto from './Foto.jsx'
 import { soles } from '../lib/formato.js'
 
-// Recibe el producto y las acciones por props.
-// Con mouse, al pasar por la foto sube una barra con «Vista rápida» y «Agregar»; en táctil queda el botón redondo.
 export default function TarjetaProducto({ producto, onVer, onAgregar }) {
   const { nombre, categoria_nombre, precio, rating, resenas, imagen, stock } = producto
   return (
@@ -17,7 +15,6 @@ export default function TarjetaProducto({ producto, onVer, onAgregar }) {
         </span>
         {stock <= 5 && stock > 0 && <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-secundario px-3 py-1 text-xs font-semibold text-noche">Últimas {stock}</span>}
         {stock === 0 && <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-noche px-3 py-1 text-xs font-semibold text-white">Agotado</span>}
-        {/* Barra de acciones (solo con mouse) */}
         <div className="producto-acciones absolute inset-x-3 bottom-3 hidden gap-2 [@media(hover:hover)_and_(pointer:fine)]:flex">
           <button onClick={() => onVer(producto)} tabIndex={-1} aria-hidden="true"
             className="presionable flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-superficie/90 text-sm font-semibold backdrop-blur-sm hover:bg-superficie">

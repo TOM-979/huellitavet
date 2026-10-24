@@ -14,7 +14,6 @@
   .pasarela-copia { display: none; }
 }
 
-/* Hero: anillos en órbita alrededor de la foto en arco */
 .orbita {
   position: absolute;
   left: 50%;
@@ -37,7 +36,6 @@
   border: 1px solid color-mix(in srgb, var(--color-secundario) 30%, transparent);
   animation: orbita 45s linear infinite reverse;
 }
-/* Un punto de luz viaja en cada anillo */
 .orbita::before {
   content: "";
   position: absolute;
@@ -52,7 +50,6 @@
 .orbita-chica::before { left: auto; right: -5px; width: 9px; height: 9px; background: var(--color-secundario); box-shadow: 0 0 12px var(--color-secundario); }
 @keyframes orbita { to { rotate: 360deg; } }
 
-/* Etiquetas que flotan suave alrededor de la foto */
 .etiqueta-flotante { animation: flotar 5s ease-in-out infinite alternate; }
 @keyframes flotar {
   from { translate: 0 0; }
@@ -63,13 +60,11 @@
   .orbita, .etiqueta-flotante { animation: none; }
 }
 
-/* Escena por especies: la ficha gira suave hacia el frente a medida que se arma */
 .escena-ficha {
   transform-style: preserve-3d;
   transition: transform 400ms var(--ease-salida);
 }
 
-/* Pasarela de especies: carta que sube, foto que se acerca y botón que aparece */
 .especie-carta { transition: transform 450ms var(--ease-salida), box-shadow 450ms var(--ease-salida); }
 .especie-foto { transition: transform 900ms var(--ease-salida); }
 .especie-boton { opacity: 0; transform: translateY(10px); transition: opacity 300ms ease, transform 400ms var(--ease-salida); }
@@ -78,11 +73,9 @@
   .especie-carta:hover .especie-foto { transform: scale(1.08); }
   .especie-carta:hover .especie-boton { opacity: 1; transform: translateY(0); }
 }
-/* En pantallas táctiles el botón siempre se ve */
 @media (hover: none) { .especie-boton { opacity: 1; transform: none; } }
 .especie-carta:focus-visible .especie-boton { opacity: 1; transform: none; }
 
-/* Nombres gigantes con contorno que corren detrás */
 .especies-fondo {
   white-space: nowrap;
   font-family: var(--font-display);
@@ -94,7 +87,6 @@
 }
 .especies-fondo span { display: inline-block; animation: especies-fondo 80s linear infinite; }
 @keyframes especies-fondo { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-/* Flecha que invita a arrastrar */
 .especies-arrastre { animation: arrastre 1.8s var(--ease-salida) infinite; }
 @keyframes arrastre { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 

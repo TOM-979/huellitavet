@@ -1,4 +1,3 @@
-// Datos fijos de la clínica y su estado "abierto ahora" (hora de Lima)
 export const CLINICA = {
   // Dirección única de toda la web: la sede central de SENATI
   calle: 'Av. Alfredo Mendiola 3520, Independencia',

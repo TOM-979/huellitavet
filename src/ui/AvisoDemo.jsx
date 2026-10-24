@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useModoDemo } from '../lib/useModoDemo.js'
 
-// Flota abajo para no empujar el encabezado (y su logo) cuando aparece tarde
-// Aviso cuando el backend está apagado y se muestra el catálogo de respaldo
 export default function AvisoDemo() {
   const demo = useModoDemo()
   return (

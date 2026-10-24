@@ -12,7 +12,6 @@ import { AvisosProvider } from './context/Avisos.jsx'
 import './App.css'
 import Inicio from './components/Inicio/Inicio.jsx'
 
-// Las demás páginas se descargan solo cuando se visitan
 const Servicios = lazy(() => import('./components/Servicios/Servicios.jsx'))
 const Tienda = lazy(() => import('./components/Tienda/Tienda.jsx'))
 const Reservar = lazy(() => import('./components/Reservar/Reservar.jsx'))

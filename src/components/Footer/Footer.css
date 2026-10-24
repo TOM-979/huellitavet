@@ -1,6 +1,3 @@
-/* =========================================
-   PIE DE PÁGINA
-========================================= */
 .pie {
   position: relative;
   overflow: hidden;
@@ -12,7 +9,6 @@
     var(--color-tinta-profunda);
 }
 
-/* Puntos de luz que suben despacio */
 .pie::before {
   content: "";
   position: absolute;
@@ -35,7 +31,6 @@
   to { transform: translateY(-20%); }
 }
 
-/* Enlaces: la flecha aparece al pasar el mouse */
 .pie-enlace {
   display: inline-flex;
   min-height: 2rem;
@@ -51,7 +46,6 @@
 .pie-enlace:hover { color: #fff; }
 .pie-enlace:hover svg { opacity: 1; transform: translate(0, 0); }
 
-/* Nombre gigante: se recorta por abajo y se enciende bajo el cursor */
 .pie-gigante-marco { position: relative; overflow: hidden; }
 .pie-gigante {
   margin: 0 0 -0.18em;
@@ -68,7 +62,6 @@
   background-clip: text;
   color: transparent;
 }
-/* Capa encendida: degradado de la marca con brillo, visible solo alrededor del cursor */
 .pie-gigante-luz {
   position: absolute;
   inset: 0;
@@ -80,7 +73,6 @@
   transition: opacity 400ms ease;
 }
 .pie-gigante-marco:hover .pie-gigante-luz { opacity: 1; }
-/* En pantallas táctiles queda encendido suave todo el tiempo */
 @media (hover: none) {
   .pie-gigante-luz { opacity: 0.55; mask-image: none; }
 }

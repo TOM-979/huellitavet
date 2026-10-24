@@ -4,7 +4,6 @@ import { Check, X } from 'lucide-react'
 
 const Ctx = createContext(null)
 
-// Avisos breves en la esquina (por ejemplo, "Agregaste… al carrito")
 export function AvisosProvider({ children }) {
   const [avisos, setAvisos] = useState([])
   const id = useRef(0)
