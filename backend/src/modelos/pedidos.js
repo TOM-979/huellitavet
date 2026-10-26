@@ -36,7 +36,7 @@ export async function crearPedido({ items, cliente }) {
     await cx.query('UPDATE pedidos SET codigo = $1 WHERE id = $2', [codigo, pedidoId])
 
     for (const d of detalle) {
-      await cx.query('INSERT INTO pedido_detalle (pedido_id, producto_id, cantidad, precio_unitario) VALUES ($1,$2,$3,$4)',
+      await cx.query('INSERT INTO pedido_detalle (pedido_id, producto_id, cantidad, precio_unit) VALUES ($1,$2,$3,$4)',
         [pedidoId, d.id, d.cantidad, d.precio])
       const { rowCount } = await cx.query('UPDATE productos SET stock = stock - $1 WHERE id = $2 AND stock >= $1',
         [d.cantidad, d.id])
