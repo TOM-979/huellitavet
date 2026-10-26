@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import Header from './components/Header/Header.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -18,14 +18,25 @@ const Reservar = lazy(() => import('./components/Reservar/Reservar.jsx'))
 const Contacto = lazy(() => import('./components/Contacto/Contacto.jsx'))
 const NoEncontrada = lazy(() => import('./components/NoEncontrada/NoEncontrada.jsx'))
 
+// Al recargar la página (F5, botón del navegador o Ctrl+R) siempre se vuelve al inicio.
+// Solo cuenta la recarga: entrar por un enlace o escribir una dirección abre la página pedida.
+const recargada = performance.getEntriesByType('navigation')[0]?.type === 'reload'
+let primeraCarga = true
+
 const TITULOS = { '/': 'Veterinaria para todas las especies', '/servicios': 'Servicios', '/tienda': 'Tienda', '/reservar': 'Reservar cita', '/contacto': 'Contacto' }
 
 function Paginas() {
   const location = useLocation()
+  const navegar = useNavigate()
   useEffect(() => {
+    if (primeraCarga) {
+      primeraCarga = false
+      history.scrollRestoration = 'manual'
+      if (recargada && location.pathname !== '/') { navegar('/', { replace: true }); return }
+    }
     window.scrollTo(0, 0)
     document.title = `HuellitaVet · ${TITULOS[location.pathname] ?? 'Página no encontrada'}`
-  }, [location.pathname])
+  }, [location.pathname, navegar])
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.main key={location.pathname} id="contenido" tabIndex={-1} className="outline-none"

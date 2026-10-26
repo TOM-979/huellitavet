@@ -9,14 +9,8 @@
     <link rel="icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://images.unsplash.com" />
     <script>
-      // Aplica el tema guardado (o el del sistema) antes de pintar, para que no destelle
-      (function () {
-        var t = null
-        try { t = localStorage.getItem("tema") } catch (e) {}
-        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
-        document.documentElement.dataset.theme = t
-        if (t === "dark") document.querySelector('meta[name="theme-color"]').setAttribute("content", "#0D1A1F")
-      })()
+      // Siempre arranca en claro (al abrir y al recargar); el botón solo cambia el tema durante la visita
+      document.documentElement.dataset.theme = "light"
     </script>
     <title>HuellitaVet · Veterinaria para todas las especies</title>
   </head>
