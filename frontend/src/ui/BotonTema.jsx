@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { flushSync } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { Moon, Sun } from 'lucide-react'
 import BotonIcono from './BotonIcono.jsx'
 
-// El tema inicial lo pone el script de index.html antes de pintar (evita el destello claro)
+// El tema inicial (siempre claro) lo pone el script de index.html antes de pintar
 const leerTema = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
 const COLOR_BARRA = { light: '#264653', dark: '#0D1A1F' }
 
@@ -16,23 +16,9 @@ function aplicar(tema) {
 export default function BotonTema() {
   const [tema, setTema] = useState(leerTema)
   const oscuro = tema === 'dark'
-  useEffect(() => {
-    const consulta = window.matchMedia('(prefers-color-scheme: dark)')
-    const alCambiar = e => {
-      let guardado = null
-      try { guardado = localStorage.getItem('tema') } catch {}
-      if (guardado) return
-      const t = e.matches ? 'dark' : 'light'
-      aplicar(t)
-      setTema(t)
-    }
-    consulta.addEventListener('change', alCambiar)
-    return () => consulta.removeEventListener('change', alCambiar)
-  }, [])
 
   function cambiar(e) {
     const siguiente = oscuro ? 'light' : 'dark'
-    try { localStorage.setItem('tema', siguiente) } catch {}
     const reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (!document.startViewTransition || reducido) {
       aplicar(siguiente)
