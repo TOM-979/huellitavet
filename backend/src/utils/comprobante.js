@@ -1,6 +1,7 @@
 export function generarComprobante(pedido, salida) {
   const soles = (n) => `S/ ${Number(n).toFixed(2)}`
-  const fecha = new Date(`${pedido.creado.replace(' ', 'T')}Z`).toLocaleString('es-PE', {
+  const raw = pedido.creado_en || pedido.creado || new Date().toISOString()
+  const fecha = new Date(String(raw).replace(' ', 'T')).toLocaleString('es-PE', {
     timeZone: 'America/Lima', dateStyle: 'long', timeStyle: 'short'
   })
 
@@ -8,7 +9,7 @@ export function generarComprobante(pedido, salida) {
     <tr>
       <td>${d.cantidad}</td>
       <td>${d.nombre}<br><small style="color:#888">${d.sku}</small></td>
-      <td style="text-align:right">${soles(d.precio_unit ?? d.precio_unitario ?? 0)}</td>
+      <td style="text-align:right">${soles(d.precio_unitario ?? 0)}</td>
       <td style="text-align:right">${soles(d.importe)}</td>
     </tr>`).join('')
 
