@@ -1,0 +1,210 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/instrument-sans";
+
+@theme {
+  --color-primario: #2A9D8F;          /* fondos, íconos, bordes */
+  --color-primario-oscuro: #1E786E;   /* texto verde y botones (5.3:1) */
+  --color-primario-hover: #1A6B62;
+  --color-primario-claro: #E6F4F2;
+  --color-secundario: #F4A261;        /* acción principal, con texto oscuro (4.9:1) */
+  --color-secundario-hover: #F7B47E;
+  --color-tinta: #264653;             /* texto y secciones oscuras */
+  --color-tinta-profunda: #1C3640;
+  --color-gris: #5E6F78;              /* texto secundario (4.9:1 sobre fondo) */
+  --color-fondo: #F8F9FA;
+  --color-borde: #E3E8EB;
+  --color-error: #C62F3B;
+
+  /* Roles que cambian con el tema oscuro */
+  --color-superficie: #FFFFFF;        /* tarjetas, campos, header */
+  --color-noche: #264653;             /* secciones oscuras y capas sobre fotos (oscuras en ambos temas) */
+  --color-acento: #1E786E;            /* texto verde */
+  --color-primario-claro-hover: #D4ECE8;
+  --color-esqueleto: #ECF0F2;
+  --color-error-fondo: #FCE1E3;
+  --color-error-texto: #9E1F2A;
+  --color-aviso-fondo: #FDF6D8;
+  --color-aviso-texto: #6E5B0C;
+
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --font-sans: "Instrument Sans Variable", system-ui, sans-serif;
+
+  --text-xs--line-height: 1.4;
+  --text-sm--line-height: 1.5;
+  --text-base--line-height: 1.5;
+  --text-xl--line-height: 1.25;
+  --text-2xl--line-height: 1.2;
+  --text-3xl--line-height: 1.15;
+  --text-4xl--line-height: 1.1;
+  --text-5xl--line-height: 1.05;
+  --text-6xl--line-height: 1;
+  --text-7xl--line-height: 0.95;
+
+  --shadow-suave: 0 1px 3px rgba(38, 70, 83, 0.06);
+  --shadow-flotante: 0 12px 40px rgba(38, 70, 83, 0.07);
+
+  --ease-salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-cajon: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --breakpoint-sm: initial;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
+}
+
+/* Tema oscuro: se activa con data-theme="dark" en <html> (ver index.html y BotonTema.jsx) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-tinta: #E4EDEF;             /* texto principal */
+  --color-gris: #9DB2B9;              /* texto secundario (7:1 sobre fondo) */
+  --color-fondo: #0D1A1F;
+  --color-superficie: #13252C;
+  --color-borde: #233C45;
+  --color-noche: #1A3139;
+  --color-tinta-profunda: #081216;
+  --color-acento: #5CC8B9;
+  --color-primario-claro: #12312F;
+  --color-primario-claro-hover: #184440;
+  --color-esqueleto: #1A2F36;
+  --color-error: #F27884;
+  --color-error-fondo: #3A1A1F;
+  --color-error-texto: #F7B3BA;
+  --color-aviso-fondo: #2E2810;
+  --color-aviso-texto: #EAD889;
+}
+
+@layer base {
+html { scroll-behavior: smooth; }
+body {
+  @apply bg-fondo font-sans text-tinta antialiased;
+  font-optical-sizing: auto;
+}
+h1, h2, h3 {
+  @apply font-display;
+  font-variation-settings: "wdth" 90;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+
+:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+}
+
+.presionable {
+  transition: transform 160ms var(--ease-salida), background-color 150ms ease, border-color 150ms ease;
+}
+.presionable:active:not(:disabled) { transform: scale(0.97); }
+
+@media (hover: hover) and (pointer: fine) {
+  .zoom-foto img { transition: transform 300ms var(--ease-salida); }
+  .zoom-foto:hover img { transform: scale(1.04); }
+}
+
+.sin-barra { scrollbar-width: none; }
+.sin-barra::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mapas de Google: en tema oscuro se invierten para no deslumbrar */
+:root[data-theme="dark"] .mapa { filter: invert(0.9) hue-rotate(180deg) saturate(0.7); }
+
+/* Cambio de tema: el círculo lo anima ui/BotonTema.jsx; aquí se quita el fundido por defecto */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+body {
+  background:
+    radial-gradient(900px 620px at 92% -8%, rgba(244, 162, 97, 0.16), transparent 60%),
+    radial-gradient(780px 560px at -10% 28%, rgba(42, 157, 143, 0.13), transparent 62%),
+    radial-gradient(720px 520px at 60% 110%, rgba(42, 157, 143, 0.10), transparent 62%),
+    var(--color-fondo);
+  background-attachment: fixed;
+}
+:root[data-theme="dark"] body {
+  background:
+    radial-gradient(900px 620px at 92% -8%, rgba(244, 162, 97, 0.10), transparent 60%),
+    radial-gradient(780px 560px at -10% 28%, rgba(42, 157, 143, 0.20), transparent 62%),
+    radial-gradient(720px 520px at 60% 110%, rgba(42, 157, 143, 0.12), transparent 62%),
+    var(--color-fondo);
+  background-attachment: fixed;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(38, 70, 83, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(38, 70, 83, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 18%, #000 15%, transparent 75%);
+}
+:root[data-theme="dark"] body::before {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* En la capa de componentes para que las utilidades (absolute, etc.) puedan cambiar la posición */
+@layer components {
+  .foco { position: relative; isolation: isolate; }
+}
+.foco::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(42, 157, 143, 0.14), transparent 60%);
+}
+:root[data-theme="dark"] .foco::after {
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(92, 200, 185, 0.14), transparent 60%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .foco:hover::after { opacity: 1; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .elevable { transition: transform 300ms var(--ease-salida), box-shadow 300ms var(--ease-salida); }
+  .elevable:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(38, 70, 83, 0.12); }
+}
+
+.texto-marca {
+  background: linear-gradient(100deg, var(--color-acento) 15%, var(--color-primario) 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.huella-estela {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--color-primario);
+  animation: huella-estela 1100ms var(--ease-salida) forwards;
+}
+@keyframes huella-estela {
+  0% { opacity: 0; scale: 0.6; }
+  15% { opacity: 0.45; scale: 1; }
+  100% { opacity: 0; scale: 0.9; }
+}

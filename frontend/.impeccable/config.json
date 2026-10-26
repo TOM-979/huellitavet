@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/components/Footer/Footer.css"
+        ],
+        "createdAt": "2026-10-24T03:41:17.140Z",
+        "reason": "El usuario pidió seguir su portafolio, cuyo pie tiene el nombre gigante con degradado (footer-giant)"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/index.css"
+        ],
+        "createdAt": "2026-10-24T03:46:39.306Z",
+        "reason": "El usuario pidió seguir su portafolio, que destaca palabras de los títulos con degradado"
+      }
+    ]
+  }
+}

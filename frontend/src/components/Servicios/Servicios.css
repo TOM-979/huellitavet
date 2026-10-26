@@ -1,0 +1,4 @@
+.servicio-nombre { transition: transform 400ms var(--ease-salida), color 200ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .servicio-fila:hover .servicio-nombre { transform: translateX(6px); color: var(--color-acento); }
+}

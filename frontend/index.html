@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#264653" />
+    <meta name="description" content="HuellitaVet: clínica veterinaria en Independencia, Lima. Perros, gatos, aves, cuyes, conejos, reptiles y más. Reserva tu cita en línea y compra para tu mascota." />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <script>
+      // Aplica el tema guardado (o el del sistema) antes de pintar, para que no destelle
+      (function () {
+        var t = null
+        try { t = localStorage.getItem("tema") } catch (e) {}
+        if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+        document.documentElement.dataset.theme = t
+        if (t === "dark") document.querySelector('meta[name="theme-color"]').setAttribute("content", "#0D1A1F")
+      })()
+    </script>
+    <title>HuellitaVet · Veterinaria para todas las especies</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+.pie {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 48px 48px 0 0;
+  background:
+    radial-gradient(60% 85% at 8% 0%, rgba(42, 157, 143, 0.22), transparent 65%),
+    radial-gradient(55% 80% at 92% 100%, rgba(244, 162, 97, 0.14), transparent 65%),
+    var(--color-tinta-profunda);
+}
+
+.pie::before {
+  content: "";
+  position: absolute;
+  inset: -25% 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 8% 14%, rgba(92, 200, 185, 0.7) 0 2px, transparent 2.7px),
+    radial-gradient(circle at 31% 42%, rgba(244, 162, 97, 0.5) 0 1.5px, transparent 2.1px),
+    radial-gradient(circle at 52% 12%, rgba(92, 200, 185, 0.6) 0 2.2px, transparent 3px),
+    radial-gradient(circle at 74% 33%, rgba(244, 162, 97, 0.45) 0 1.5px, transparent 2.1px),
+    radial-gradient(circle at 91% 66%, rgba(92, 200, 185, 0.6) 0 2px, transparent 2.7px),
+    radial-gradient(circle at 17% 78%, rgba(244, 162, 97, 0.4) 0 1.5px, transparent 2.1px),
+    radial-gradient(circle at 44% 88%, rgba(92, 200, 185, 0.5) 0 2px, transparent 2.7px),
+    radial-gradient(circle at 66% 70%, rgba(244, 162, 97, 0.4) 0 1.5px, transparent 2.1px);
+  animation: pie-puntos 26s linear infinite;
+}
+@keyframes pie-puntos {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20%); }
+}
+
+.pie-enlace {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 150ms ease;
+}
+.pie-enlace svg {
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 200ms ease, transform 250ms var(--ease-salida);
+}
+.pie-enlace:hover { color: #fff; }
+.pie-enlace:hover svg { opacity: 1; transform: translate(0, 0); }
+
+.pie-gigante-marco { position: relative; overflow: hidden; }
+.pie-gigante {
+  margin: 0 0 -0.18em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 17vw, 15rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.pie-gigante-luz {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, #5cc8b9 10%, #2a9d8f 45%, #f4a261 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  mask-image: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%), #000 25%, transparent 75%);
+  transition: opacity 400ms ease;
+}
+.pie-gigante-marco:hover .pie-gigante-luz { opacity: 1; }
+@media (hover: none) {
+  .pie-gigante-luz { opacity: 0.55; mask-image: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pie::before { animation: none; }
+}

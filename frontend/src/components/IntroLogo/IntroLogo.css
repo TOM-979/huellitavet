@@ -1,0 +1,10 @@
+html { scrollbar-gutter: stable; }
+.intro-activa { overflow: hidden; }
+.intro-activa [data-logo-destino] { opacity: 0; }
+.intro-brillo {
+  color: var(--color-secundario-hover);
+  mask-image: linear-gradient(100deg, transparent 38%, #000 50%, transparent 62%);
+  mask-size: 200% 100%;
+  mask-repeat: no-repeat;
+  mask-position: 150% 0;
+}
