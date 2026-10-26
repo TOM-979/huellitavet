@@ -50,8 +50,8 @@ export async function obtenerPedido(codigo, cx) {
   const pedido = await uno(`SELECT p.*, cl.nombre AS cliente, cl.telefono FROM pedidos p
     LEFT JOIN clientes cl ON cl.id = p.cliente_id WHERE p.codigo = $1`, [codigo], cx)
   if (!pedido) return null
-  pedido.detalle = await consultar(`SELECT d.producto_id AS id, pr.sku, pr.nombre, d.cantidad, d.precio_unitario,
-      ROUND(d.cantidad * d.precio_unitario, 2) AS importe
+  pedido.detalle = await consultar(`SELECT d.producto_id AS id, pr.sku, pr.nombre, d.cantidad, d.precio_unit AS precio_unitario,
+      ROUND(d.cantidad * d.precio_unit, 2) AS importe
     FROM pedido_detalle d JOIN productos pr ON pr.id = d.producto_id WHERE d.pedido_id = $1`, [pedido.id], cx)
   return pedido
 }
