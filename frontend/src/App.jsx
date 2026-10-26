@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import Header from './components/Header/Header.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -18,58 +18,25 @@ const Reservar = lazy(() => import('./components/Reservar/Reservar.jsx'))
 const Contacto = lazy(() => import('./components/Contacto/Contacto.jsx'))
 const NoEncontrada = lazy(() => import('./components/NoEncontrada/NoEncontrada.jsx'))
 
-// Al recargar, la página vuelve a la posición en la que estabas (guardada por pestaña y por ruta)
-const CLAVE_SCROLL = 'huellitavet:scroll:'
-let ultimaRuta = null
-const leerScroll = ruta => { try { return Number(sessionStorage.getItem(CLAVE_SCROLL + ruta)) || 0 } catch { return 0 } }
-const guardarScroll = ruta => { try { sessionStorage.setItem(CLAVE_SCROLL + ruta, String(window.scrollY)) } catch {} }
-
-// Espera (hasta ~10 s, porque la API puede tardar) a que la página tenga alto suficiente
-// y la lleva a la posición guardada. Si la persona empieza a mover la página, se suelta.
-function restaurarScroll(y) {
-  if (y <= 0) return
-  let intentos = 0
-  const eventos = ['wheel', 'touchstart', 'keydown', 'pointerdown']
-  const soltar = () => eventos.forEach(e => window.removeEventListener(e, soltar))
-  eventos.forEach(e => window.addEventListener(e, soltar, { passive: true }))
-  const paso = () => {
-    const alto = document.documentElement.scrollHeight - window.innerHeight
-    if (alto >= y) { window.scrollTo(0, y); soltar(); return }
-    if (++intentos > 600) { soltar(); return }
-    requestAnimationFrame(paso)
-  }
-  requestAnimationFrame(paso)
-}
+// Al recargar la página (F5, botón del navegador o Ctrl+R) siempre se vuelve al inicio.
+// Solo cuenta la recarga: entrar por un enlace o escribir una dirección abre la página pedida.
+const recargada = performance.getEntriesByType('navigation')[0]?.type === 'reload'
+let primeraCarga = true
 
 const TITULOS = { '/': 'Veterinaria para todas las especies', '/servicios': 'Servicios', '/tienda': 'Tienda', '/reservar': 'Reservar cita', '/contacto': 'Contacto' }
 
 function Paginas() {
   const location = useLocation()
+  const navegar = useNavigate()
   useEffect(() => {
-    if (ultimaRuta === location.pathname) return // StrictMode vuelve a ejecutar el efecto al montar
-    if (ultimaRuta === null) {
+    if (primeraCarga) {
+      primeraCarga = false
       history.scrollRestoration = 'manual'
-      restaurarScroll(leerScroll(location.pathname))
-    } else {
-      window.scrollTo(0, 0)
+      if (recargada && location.pathname !== '/') { navegar('/', { replace: true }); return }
     }
-    ultimaRuta = location.pathname
+    window.scrollTo(0, 0)
     document.title = `HuellitaVet · ${TITULOS[location.pathname] ?? 'Página no encontrada'}`
-  }, [location.pathname])
-
-  // Guarda la posición mientras se baja (con una sola escritura por cuadro) y al salir de la página
-  useEffect(() => {
-    const ruta = location.pathname
-    let pendiente = false
-    const alMover = () => {
-      if (pendiente) return
-      pendiente = true
-      requestAnimationFrame(() => { pendiente = false; guardarScroll(ruta) })
-    }
-    window.addEventListener('scroll', alMover, { passive: true })
-    window.addEventListener('pagehide', () => guardarScroll(ruta))
-    return () => { window.removeEventListener('scroll', alMover) }
-  }, [location.pathname])
+  }, [location.pathname, navegar])
   return (
     <AnimatePresence mode="wait" initial={false}>
       <motion.main key={location.pathname} id="contenido" tabIndex={-1} className="outline-none"
