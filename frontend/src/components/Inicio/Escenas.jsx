@@ -65,7 +65,8 @@ export function EscenaEspecies({ especies, servicios, vets }) {
       if (!el || document.hidden) { pos = null; return }
       const r = el.getBoundingClientRect()
       const fija = r.top <= 8 && r.bottom >= window.innerHeight - 8
-      if (!fija || Date.now() - manual.current < 2200) { pos = null; return }
+      // Solo arranca después de que la persona use la página (así una recarga no la mueve sola)
+      if (!fija || manual.current === 0 || Date.now() - manual.current < 2200) { pos = null; return }
       const recorrido = el.offsetHeight - window.innerHeight
       if (pos === null || Math.abs(pos - window.scrollY) > 3) pos = window.scrollY
       pos += (recorrido / (N * 6)) * dt

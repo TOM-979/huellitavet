@@ -24,13 +24,18 @@ let ultimaRuta = null
 const leerScroll = ruta => { try { return Number(sessionStorage.getItem(CLAVE_SCROLL + ruta)) || 0 } catch { return 0 } }
 const guardarScroll = ruta => { try { sessionStorage.setItem(CLAVE_SCROLL + ruta, String(window.scrollY)) } catch {} }
 
-// Espera a que la página cargue su contenido (datos y fotos) y la lleva a la posición guardada
+// Espera (hasta ~10 s, porque la API puede tardar) a que la página tenga alto suficiente
+// y la lleva a la posición guardada. Si la persona empieza a mover la página, se suelta.
 function restaurarScroll(y) {
+  if (y <= 0) return
   let intentos = 0
+  const eventos = ['wheel', 'touchstart', 'keydown', 'pointerdown']
+  const soltar = () => eventos.forEach(e => window.removeEventListener(e, soltar))
+  eventos.forEach(e => window.addEventListener(e, soltar, { passive: true }))
   const paso = () => {
     const alto = document.documentElement.scrollHeight - window.innerHeight
-    if (alto >= y || intentos > 180) { window.scrollTo(0, Math.min(y, Math.max(alto, 0))); return }
-    intentos++
+    if (alto >= y) { window.scrollTo(0, y); soltar(); return }
+    if (++intentos > 600) { soltar(); return }
     requestAnimationFrame(paso)
   }
   requestAnimationFrame(paso)
@@ -63,7 +68,7 @@ function Paginas() {
     }
     window.addEventListener('scroll', alMover, { passive: true })
     window.addEventListener('pagehide', () => guardarScroll(ruta))
-    return () => { window.removeEventListener('scroll', alMover); guardarScroll(ruta) }
+    return () => { window.removeEventListener('scroll', alMover) }
   }, [location.pathname])
   return (
     <AnimatePresence mode="wait" initial={false}>
