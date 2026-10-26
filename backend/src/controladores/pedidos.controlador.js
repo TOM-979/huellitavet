@@ -13,8 +13,6 @@ export const obtener = async (req, res) => {
 export const comprobante = async (req, res) => {
   const pedido = await pedidos.obtenerPedido(req.params.codigo)
   if (!pedido) throw conEstado(404, 'No encontramos un pedido con ese código.')
-  res.setHeader('Content-Type', 'application/pdf')
-  res.setHeader('Content-Disposition', `inline; filename="comprobante-${pedido.codigo}.pdf"`)
   generarComprobante(pedido, res)
 }
 

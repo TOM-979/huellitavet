@@ -1,59 +1,79 @@
-// Genera el comprobante de pago en PDF (nota de venta, no válida como comprobante electrónico SUNAT)
-import PDFDocument from 'pdfkit'
-
-const VERDE = '#1E786E'
-const OSCURO = '#264653'
-const GRIS = '#5E6F78'
-const soles = (n) => `S/ ${Number(n).toFixed(2)}`
-
 export function generarComprobante(pedido, salida) {
-  const doc = new PDFDocument({ size: 'A4', margin: 48, info: { Title: `Comprobante ${pedido.codigo}`, Author: 'HuellitaVet' } })
-  doc.pipe(salida)
+  const soles = (n) => `S/ ${Number(n).toFixed(2)}`
+  const fecha = new Date(`${pedido.creado.replace(' ', 'T')}Z`).toLocaleString('es-PE', {
+    timeZone: 'America/Lima', dateStyle: 'long', timeStyle: 'short'
+  })
 
-  doc.rect(0, 0, doc.page.width, 110).fill(OSCURO)
-  doc.fillColor('#FFFFFF').font('Helvetica-Bold').fontSize(24).text('HuellitaVet', 48, 36)
-  doc.font('Helvetica').fontSize(10).fillColor('#D5E4E7')
-    .text('Clínica veterinaria · Av. Alfredo Mendiola 3520, Independencia, Lima', 48, 68)
-    .text('RUC 20601234567 · (01) 555-1234 · hola@huellitavet.pe', 48, 82)
-  doc.roundedRect(doc.page.width - 230, 30, 182, 56, 8).fill('#FFFFFF')
-  doc.fillColor(OSCURO).font('Helvetica-Bold').fontSize(10).text('NOTA DE VENTA', doc.page.width - 220, 40, { width: 162, align: 'center' })
-  doc.fillColor(VERDE).fontSize(13).text(pedido.codigo, doc.page.width - 220, 58, { width: 162, align: 'center' })
+  const filas = (pedido.detalle || []).map(d => `
+    <tr>
+      <td>${d.cantidad}</td>
+      <td>${d.nombre}<br><small style="color:#888">${d.sku}</small></td>
+      <td style="text-align:right">${soles(d.precio_unit ?? d.precio_unitario ?? 0)}</td>
+      <td style="text-align:right">${soles(d.importe)}</td>
+    </tr>`).join('')
 
-  const fecha = new Date(`${pedido.creado_en.replace(' ', 'T')}Z`).toLocaleString('es-PE', { timeZone: 'America/Lima', dateStyle: 'long', timeStyle: 'short' })
-  doc.fillColor(OSCURO).font('Helvetica-Bold').fontSize(11).text('Cliente', 48, 140)
-  doc.font('Helvetica').fillColor(GRIS).text(pedido.cliente ?? 'Cliente en tienda', 48, 156).text(pedido.telefono ? `Cel. ${pedido.telefono}` : '', 48, 171)
-  doc.fillColor(OSCURO).font('Helvetica-Bold').text('Fecha de emisión', 330, 140)
-  doc.font('Helvetica').fillColor(GRIS).text(fecha, 330, 156).text(`Estado: ${pedido.estado}`, 330, 171)
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Comprobante ${pedido.codigo}</title>
+<style>
+  body{font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:24px;color:#1a1a1a}
+  .header{background:#264653;color:#fff;padding:20px 24px;border-radius:8px 8px 0 0}
+  .header h1{margin:0;font-size:22px}
+  .header p{margin:4px 0 0;font-size:11px;opacity:.8}
+  .badge{background:#1E786E;display:inline-block;padding:4px 12px;border-radius:4px;font-size:13px;font-weight:bold;margin-top:8px}
+  .info{display:flex;gap:24px;padding:16px 24px;background:#f5f5f5;border:1px solid #ddd}
+  .info div{flex:1}
+  .info label{font-size:11px;color:#888;display:block}
+  .info span{font-size:13px;font-weight:600}
+  table{width:100%;border-collapse:collapse;margin-top:16px}
+  th{background:#264653;color:#fff;padding:8px 10px;text-align:left;font-size:12px}
+  th:last-child,th:nth-child(3){text-align:right}
+  td{padding:8px 10px;border-bottom:1px solid #eee;font-size:13px;vertical-align:top}
+  td:last-child,td:nth-child(3){text-align:right}
+  .totales{margin-top:8px;text-align:right;font-size:13px}
+  .totales .total{font-size:16px;font-weight:bold;color:#264653}
+  .footer{margin-top:24px;text-align:center;font-size:11px;color:#aaa}
+  @media print{body{padding:0}.no-print{display:none}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>HuellitaVet</h1>
+  <p>Clínica Veterinaria · Av. Alfredo Mendiola 3520, Independencia, Lima</p>
+  <p>RUC 20601234567 · (01) 555-1234 · hola@huellitavet.pe</p>
+  <div class="badge">NOTA DE VENTA &nbsp;${pedido.codigo}</div>
+</div>
+<div class="info">
+  <div>
+    <label>Cliente</label>
+    <span>${pedido.cliente ?? 'Cliente en tienda'}</span><br>
+    ${pedido.telefono ? `<label>Teléfono</label><span>${pedido.telefono}</span>` : ''}
+  </div>
+  <div style="text-align:right">
+    <label>Fecha de emisión</label>
+    <span>${fecha}</span><br>
+    <label>Estado</label>
+    <span>${pedido.estado}</span>
+  </div>
+</div>
+<table>
+  <thead><tr><th>Cant.</th><th>Descripción</th><th>P. unit.</th><th>Importe</th></tr></thead>
+  <tbody>${filas}</tbody>
+</table>
+<div class="totales">
+  <p>Subtotal: ${soles(pedido.subtotal)}</p>
+  <p>IGV (18%): ${soles(pedido.igv)}</p>
+  <p class="total">TOTAL: ${soles(pedido.total)}</p>
+</div>
+<div class="footer">
+  <p>Documento no válido como comprobante electrónico SUNAT</p>
+  <button class="no-print" onclick="window.print()" style="margin-top:12px;padding:8px 20px;background:#264653;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:14px">🖨️ Imprimir / Guardar PDF</button>
+</div>
+</body>
+</html>`
 
-  let y = 215
-  const col = { cant: 48, desc: 98, pu: 360, imp: 450 }
-  doc.rect(48, y, doc.page.width - 96, 26).fill('#E6F4F2')
-  doc.fillColor(OSCURO).font('Helvetica-Bold').fontSize(10)
-  doc.text('Cant.', col.cant + 8, y + 8).text('Descripción', col.desc, y + 8).text('P. unit.', col.pu, y + 8, { width: 80, align: 'right' }).text('Importe', col.imp, y + 8, { width: 90, align: 'right' })
-  y += 34
-  doc.font('Helvetica').fontSize(10)
-  for (const d of pedido.detalle) {
-    doc.fillColor(OSCURO).text(String(d.cantidad), col.cant + 8, y)
-      .text(d.nombre, col.desc, y, { width: 250 })
-      .text(soles(d.precio_unitario), col.pu, y, { width: 80, align: 'right' })
-      .text(soles(d.importe), col.imp, y, { width: 90, align: 'right' })
-    doc.fillColor(GRIS).fontSize(8).text(d.sku, col.desc, y + 13).fontSize(10)
-    y += 32
-    doc.moveTo(48, y - 6).lineTo(doc.page.width - 48, y - 6).strokeColor('#E3E8EB').lineWidth(1).stroke()
-  }
-
-  y += 8
-  const fila = (etiqueta, valor, negrita = false) => {
-    doc.font(negrita ? 'Helvetica-Bold' : 'Helvetica').fontSize(negrita ? 13 : 10).fillColor(negrita ? VERDE : OSCURO)
-      .text(etiqueta, 330, y, { width: 110 }).text(valor, col.imp, y, { width: 90, align: 'right' })
-    y += negrita ? 24 : 18
-  }
-  fila('Op. gravada', soles(pedido.subtotal))
-  fila('IGV (18 %)', soles(pedido.igv))
-  fila('Total', soles(pedido.total), true)
-
-  doc.font('Helvetica').fontSize(9).fillColor(GRIS)
-    .text('Recoge tu pedido en la clínica presentando este código. Horario: lunes a sábado de 9:00 a 19:00.', 48, y + 30, { width: doc.page.width - 96 })
-    .text('Documento de uso académico: no válido como comprobante electrónico SUNAT.', 48, y + 46, { width: doc.page.width - 96 })
-  doc.end()
+  salida.setHeader('Content-Type', 'text/html; charset=utf-8')
+  salida.send(html)
 }
