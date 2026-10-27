@@ -7,6 +7,8 @@ import { Aparecer } from '../../ui/Movimiento.jsx'
 import { soles } from '../../lib/formato.js'
 
 const EASE = [0.23, 1, 0.32, 1]
+// Misma foto y mismo encuadre (centrado) en la miniatura y en la tarjeta grande
+const centrada = url => (url && !url.includes('crop=') ? `${url}${url.includes('?') ? '&' : '?'}crop=center` : url)
 
 export default function MasPedidos({ productos, onVer, onAgregar }) {
   const [activo, setActivo] = useState(0)
@@ -24,7 +26,7 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
   if (!p) return null
 
   return (
-    <section ref={raiz} className="mx-auto max-w-7xl px-4 pt-28 md:px-8 md:pt-36">
+    <section ref={raiz} id="mas-pedidos" className="scroll-mt-24 mx-auto max-w-7xl px-4 pt-28 md:px-8 md:pt-36">
       <Aparecer className="flex flex-wrap items-end justify-between gap-4">
         <h2 className="max-w-lg text-5xl font-semibold md:text-6xl">Lo más pedido en la tienda</h2>
         <Boton to="/tienda" variante="contorno">Ir a la tienda<ArrowRight size={18} aria-hidden="true" /></Boton>
@@ -36,10 +38,10 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
             <motion.div key={p.id} className="absolute inset-0"
               initial={{ opacity: 0, transform: 'scale(1.06)' }} animate={{ opacity: 1, transform: 'scale(1)' }}
               exit={{ opacity: 0, transition: { duration: 0.35 } }} transition={{ duration: 0.7, ease: EASE }}>
-              <Foto src={p.imagen} alt="" ancho={900} alto={900} className="h-full w-full" />
+              <Foto src={centrada(p.imagen)} alt="" ancho={900} alto={900} className="h-full w-full" />
             </motion.div>
           </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-t from-noche via-noche/45 to-transparent" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-t from-noche via-noche/70 to-noche/10" aria-hidden="true" />
           <button type="button" onClick={() => onVer(p)} aria-label={`Ver detalle de ${p.nombre}`} className="absolute inset-0 z-10 cursor-pointer" />
           <div className="pointer-events-none relative z-20 flex min-h-[460px] flex-col justify-between p-6 md:min-h-[560px] md:p-9">
             <span className="self-start rounded-full bg-secundario px-3.5 py-1.5 text-sm font-semibold text-noche">#{activo + 1} más pedido</span>
@@ -47,9 +49,9 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
               <motion.div key={p.id}
                 initial={{ opacity: 0, transform: 'translateY(14px)' }} animate={{ opacity: 1, transform: 'translateY(0px)' }}
                 exit={{ opacity: 0, transform: 'translateY(-6px)', transition: { duration: 0.15 } }} transition={{ duration: 0.45, ease: EASE }}>
-                <p className="text-sm text-[#C9DADF]">{p.categoria_nombre}</p>
+                <p className="text-sm font-medium text-white/90">{p.categoria_nombre}</p>
                 <h3 className="mt-1 max-w-md text-3xl font-semibold leading-tight md:text-4xl">{p.nombre}</h3>
-                <p className="mt-3 flex items-center gap-1.5 text-sm text-[#D5E4E7]">
+                <p className="mt-3 flex items-center gap-1.5 text-sm text-white/90">
                   <Star size={16} className="fill-secundario text-secundario" aria-hidden="true" />
                   <span className="font-semibold text-white">{p.rating}</span> · {p.resenas} opiniones
                 </p>
@@ -74,7 +76,7 @@ export default function MasPedidos({ productos, onVer, onAgregar }) {
                   <span className={`w-9 shrink-0 text-center font-display text-2xl font-semibold tabular-nums transition-colors duration-300 ${sel ? 'text-acento' : 'text-gris/60'}`}>
                     {String(n + 1).padStart(2, '0')}
                   </span>
-                  <Foto src={x.imagen} alt="" ancho={120} alto={120} className={`h-16 w-16 shrink-0 rounded-2xl transition-transform duration-500 ${sel ? 'scale-105' : ''}`} />
+                  <Foto src={centrada(x.imagen)} alt="" ancho={120} alto={120} className={`h-16 w-16 shrink-0 rounded-2xl bg-superficie object-cover ring-1 ring-borde transition-transform duration-500 ${sel ? 'scale-105' : ''}`} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-semibold">{x.nombre}</span>
                     <span className="mt-0.5 flex items-center gap-1 text-sm text-gris">
