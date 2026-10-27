@@ -1,4 +1,9 @@
 import { consultar, uno } from '../db/conexion.js'
+import { productos as productosBase } from '../db/datos.js'
+
+// Las fotos de la tienda salen del código (public/images). Así se ven aunque la base de datos publicada
+// todavía guarde rutas antiguas; si un producto no está en datos.js se respeta lo que diga la base.
+const IMAGEN_POR_SKU = Object.fromEntries(productosBase.map(p => [p.sku, p.imagen]))
 
 const lista = (texto) => (texto ? texto.split(',') : [])
 
@@ -64,7 +69,7 @@ export const obtenerProducto = async (id) => {
   return fila ? normalizarProducto(fila) : null
 }
 
-const normalizarProducto = (p) => ({ ...p, destacado: Boolean(p.destacado), especies: lista(p.especies) })
+const normalizarProducto = (p) => ({ ...p, imagen: IMAGEN_POR_SKU[p.sku] ?? p.imagen, destacado: Boolean(p.destacado), especies: lista(p.especies) })
 
 export async function listarServicios({ especie = '', categoria = '' } = {}) {
   const condiciones = []
