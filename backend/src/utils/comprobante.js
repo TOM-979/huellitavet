@@ -1,14 +1,16 @@
+// Evita que un nombre como "<script>" se ejecute en el comprobante
+const texto = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
+
 export function generarComprobante(pedido, salida) {
   const soles = (n) => `S/ ${Number(n).toFixed(2)}`
-  const raw = pedido.creado_en || pedido.creado || new Date().toISOString()
-  const fecha = new Date(String(raw).replace(' ', 'T')).toLocaleString('es-PE', {
+  const fecha = new Date(pedido.creado_en ?? Date.now()).toLocaleString('es-PE', {
     timeZone: 'America/Lima', dateStyle: 'long', timeStyle: 'short'
   })
 
   const filas = (pedido.detalle || []).map(d => `
     <tr>
       <td>${d.cantidad}</td>
-      <td>${d.nombre}<br><small style="color:#888">${d.sku}</small></td>
+      <td>${texto(d.nombre)}<br><small style="color:#888">${texto(d.sku)}</small></td>
       <td style="text-align:right">${soles(d.precio_unitario ?? 0)}</td>
       <td style="text-align:right">${soles(d.importe)}</td>
     </tr>`).join('')
@@ -49,8 +51,8 @@ export function generarComprobante(pedido, salida) {
 <div class="info">
   <div>
     <label>Cliente</label>
-    <span>${pedido.cliente ?? 'Cliente en tienda'}</span><br>
-    ${pedido.telefono ? `<label>Teléfono</label><span>${pedido.telefono}</span>` : ''}
+    <span>${texto(pedido.cliente ?? 'Cliente en tienda')}</span><br>
+    ${pedido.telefono ? `<label>Teléfono</label><span>${texto(pedido.telefono)}</span>` : ''}
   </div>
   <div style="text-align:right">
     <label>Fecha de emisión</label>
@@ -70,7 +72,7 @@ export function generarComprobante(pedido, salida) {
 </div>
 <div class="footer">
   <p>Documento no válido como comprobante electrónico SUNAT</p>
-  <button class="no-print" onclick="window.print()" style="margin-top:12px;padding:8px 20px;background:#264653;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:14px">🖨️ Imprimir / Guardar PDF</button>
+  <button class="no-print" onclick="window.print()" style="margin-top:12px;padding:8px 20px;background:#264653;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>
 </div>
 </body>
 </html>`

@@ -6,3 +6,4 @@ vista-previa/
 .vercel
 .DS_Store
 *.log
+.impeccable/hook.cache.json
