@@ -6,10 +6,10 @@ const ESPECIALISTA = { aves: 3, exoticos: 3, cirugia: 2, ecografia: 4, 'rayos-x'
 
 const esDomingo = (fecha) => new Date(`${fecha}T12:00:00`).getDay() === 0
 
-export async function disponibilidad(fecha) {
+export async function disponibilidad(fecha, cx) {
   if (esDomingo(fecha)) return []
-  const vets = (await consultar('SELECT id FROM veterinarios')).map(v => v.id)
-  const ocupadas = await consultar("SELECT hora, veterinario_id FROM citas WHERE fecha = $1 AND estado <> 'Cancelada'", [fecha])
+  const vets = (await consultar('SELECT id FROM veterinarios', [], cx)).map(v => v.id)
+  const ocupadas = await consultar("SELECT hora, veterinario_id FROM citas WHERE fecha = $1 AND estado <> 'Cancelada'", [fecha], cx)
   const hoy = new Date()
   const esHoy = fecha === new Date(hoy.getTime() - hoy.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
   const ahora = `${String(hoy.getHours()).padStart(2,'0')}:${String(hoy.getMinutes()).padStart(2,'0')}`
@@ -28,7 +28,7 @@ export async function crearCita({ nombre, telefono, correo, mascota, especie, se
     const atiende = await uno('SELECT 1 FROM servicio_especies WHERE servicio_id = $1 AND especie_id = $2', [servicio.id, esp.id], cx)
     if (!atiende) throw conEstado(400, `El servicio «${servicio.nombre}» no está disponible para ${esp.nombre.toLowerCase()}. Elige otro servicio.`)
 
-    const slot = (await disponibilidad(fecha)).find(h => h.hora === hora)
+    const slot = (await disponibilidad(fecha, cx)).find(h => h.hora === hora)
     if (!slot?.disponible) throw conEstado(409, 'Ese horario se acaba de ocupar. Elige otro de la lista para confirmar tu cita.')
 
     const libres = await consultar(`

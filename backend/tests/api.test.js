@@ -1,13 +1,15 @@
-// Pruebas de la API: npm test (usa una base de datos en memoria)
+// Pruebas de la API: npm test (usa una base PostgreSQL en memoria, nunca toca Supabase)
 import { test, before, after } from 'node:test'
 import assert from 'node:assert/strict'
 
+process.env.DATABASE_URL = ''
 process.env.DB_PATH = ':memory:'
 const { default: app } = await import('../src/app.js')
+const { cerrarBase } = await import('../src/db/conexion.js')
 
 let servidor, URL_BASE
 before(() => new Promise(ok => { servidor = app.listen(0, () => { URL_BASE = `http://localhost:${servidor.address().port}/api`; ok() }) }))
-after(() => servidor.close())
+after(async () => { servidor.close(); await cerrarBase() })
 
 const api = async (ruta, opciones = {}) => {
   const res = await fetch(URL_BASE + ruta, { headers: { 'Content-Type': 'application/json' }, ...opciones, body: opciones.body && JSON.stringify(opciones.body) })
@@ -73,11 +75,14 @@ test('pedidos: descuenta stock y la transacción se deshace si falta stock', asy
   assert.equal((await api('/productos/3')).datos.stock, stock3) // no se descontó nada
 })
 
-test('comprobante: devuelve un PDF', async () => {
-  const pedido = (await api('/pedidos', { method: 'POST', body: { items: [{ id: 10, cantidad: 1 }] } })).datos
-  const pdf = await api(`/pedidos/${pedido.codigo}/comprobante`)
-  assert.equal(pdf.status, 200)
-  assert.equal(pdf.datos.subarray(0, 4).toString(), '%PDF')
+test('comprobante: devuelve el HTML imprimible del pedido', async () => {
+  const pedido = (await api('/pedidos', { method: 'POST', body: { items: [{ id: 10, cantidad: 1 }], cliente: { nombre: '<b>Ana</b>', telefono: '912345678' } } })).datos
+  const html = await api(`/pedidos/${pedido.codigo}/comprobante`)
+  assert.equal(html.status, 200)
+  const texto = html.datos.toString()
+  assert.ok(texto.includes(pedido.codigo))
+  assert.ok(texto.includes('&lt;b&gt;Ana&lt;/b&gt;'))
+  assert.ok(!texto.includes('Invalid Date'))
 })
 
 test('mensajes: valida y guarda', async () => {
