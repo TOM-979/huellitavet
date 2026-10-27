@@ -213,7 +213,7 @@
    "precio": 50,
    "desde": false,
    "duracion_min": 30,
-   "imagen": "https://images.unsplash.com/photo-1770836037949-c5e8db65aa86",
+   "imagen": "/images/srv-consulta.jpg",
    "especies": [
     "perro",
     "gato",
@@ -242,7 +242,7 @@
    "precio": 45,
    "desde": false,
    "duracion_min": 20,
-   "imagen": "https://images.unsplash.com/photo-1770836037275-38b44e4b101f?crop=entropy",
+   "imagen": "/images/srv-vacunacion.jpg",
    "especies": [
     "perro",
     "gato",
@@ -264,7 +264,7 @@
    "precio": 35,
    "desde": false,
    "duracion_min": 15,
-   "imagen": "https://images.unsplash.com/photo-1725409796872-8b41e8eca929",
+   "imagen": "/images/srv-desparasitacion.jpg",
    "especies": [
     "perro",
     "gato",
@@ -293,7 +293,7 @@
    "precio": 60,
    "desde": true,
    "duracion_min": 90,
-   "imagen": "https://images.unsplash.com/photo-1583534778255-5d67d3dcf95d",
+   "imagen": "/images/srv-grooming.jpg",
    "especies": [
     "perro",
     "gato",
@@ -314,7 +314,7 @@
    "precio": 25,
    "desde": false,
    "duracion_min": 15,
-   "imagen": "https://images.unsplash.com/photo-1522858547137-f1dcec554f55",
+   "imagen": "/images/srv-unas-pico.jpg",
    "especies": [
     "perro",
     "gato",
@@ -341,7 +341,7 @@
    "precio": 120,
    "desde": false,
    "duracion_min": 60,
-   "imagen": "https://images.unsplash.com/photo-1770836037816-4445dbd449fd",
+   "imagen": "/images/srv-dental.jpg",
    "especies": [
     "perro",
     "gato",
@@ -363,7 +363,7 @@
    "precio": 80,
    "desde": true,
    "duracion_min": 30,
-   "imagen": "https://images.unsplash.com/photo-1602052577122-f73b9710adba",
+   "imagen": "/images/srv-laboratorio.jpg",
    "especies": [
     "perro",
     "gato",
@@ -392,7 +392,7 @@
    "precio": 140,
    "desde": false,
    "duracion_min": 40,
-   "imagen": "https://images.unsplash.com/photo-1770836037183-e0b4471fe2c0?crop=entropy",
+   "imagen": "/images/srv-ecografia.jpg",
    "especies": [
     "perro",
     "gato",
@@ -415,7 +415,7 @@
    "precio": 110,
    "desde": false,
    "duracion_min": 30,
-   "imagen": "https://images.unsplash.com/photo-1770836037793-95bdbf190f71",
+   "imagen": "/images/srv-rayos-x.jpg",
    "especies": [
     "perro",
     "gato",
@@ -444,7 +444,7 @@
    "precio": 250,
    "desde": true,
    "duracion_min": 120,
-   "imagen": "https://images.unsplash.com/photo-1551076805-e1869033e561",
+   "imagen": "/images/srv-cirugia.jpg",
    "especies": [
     "perro",
     "gato",
@@ -467,7 +467,7 @@
    "precio": 70,
    "desde": false,
    "duracion_min": 40,
-   "imagen": "https://images.unsplash.com/photo-1555169062-013468b47731",
+   "imagen": "/images/srv-aves.jpg",
    "especies": [
     "loro",
     "periquito"
@@ -487,7 +487,7 @@
    "precio": 70,
    "desde": false,
    "duracion_min": 40,
-   "imagen": "https://images.unsplash.com/photo-1597306599196-bf148477596b",
+   "imagen": "/images/srv-exoticos.jpg",
    "especies": [
     "cuy",
     "conejo",
@@ -511,7 +511,7 @@
    "precio": 65,
    "desde": false,
    "duracion_min": 15,
-   "imagen": "https://images.unsplash.com/photo-1600804340584-c7db2eacf0bf",
+   "imagen": "/images/srv-microchip.jpg",
    "especies": [
     "perro",
     "gato",
@@ -534,7 +534,7 @@
    "precio": 55,
    "desde": false,
    "duracion_min": 40,
-   "imagen": "https://images.unsplash.com/photo-1632236568054-12f36ecee2f6",
+   "imagen": "/images/srv-nutricion.jpg",
    "especies": [
     "perro",
     "gato",
@@ -563,7 +563,7 @@
    "precio": 150,
    "desde": true,
    "duracion_min": 1440,
-   "imagen": "https://images.unsplash.com/photo-1759164955427-14ca448a839d",
+   "imagen": "/images/srv-hospitalizacion.jpg",
    "especies": [
     "perro",
     "gato",
@@ -586,7 +586,7 @@
    "precio": 35,
    "desde": false,
    "duracion_min": 20,
-   "imagen": "https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def",
+   "imagen": "/images/srv-teleconsulta.jpg",
    "especies": [
     "perro",
     "gato",
@@ -608,28 +608,28 @@
    "nombre": "Thair",
    "especialidad": "Medicina general y felina",
    "bio": "12 años de experiencia. Certificada en manejo cat-friendly.",
-   "imagen": "https://images.unsplash.com/photo-1725409796872-8b41e8eca929"
+   "imagen": "/images/srv-desparasitacion.jpg"
   },
   {
    "id": 2,
    "nombre": "Tom",
    "especialidad": "Cirugía y traumatología",
    "bio": "Especialista en cirugía de tejidos blandos y ortopedia.",
-   "imagen": "https://images.unsplash.com/photo-1770836037275-38b44e4b101f?crop=entropy"
+   "imagen": "/images/srv-vacunacion.jpg"
   },
   {
    "id": 3,
    "nombre": "Lia",
    "especialidad": "Aves y animales exóticos",
    "bio": "Atiende loros, cuyes, conejos y reptiles desde 2015.",
-   "imagen": "https://images.unsplash.com/photo-1522858547137-f1dcec554f55"
+   "imagen": "/images/srv-unas-pico.jpg"
   },
   {
    "id": 4,
    "nombre": "Mayra",
    "especialidad": "Dermatología y diagnóstico por imagen",
    "bio": "Ecografía, rayos X y problemas de piel.",
-   "imagen": "https://images.unsplash.com/photo-1770836037793-95bdbf190f71"
+   "imagen": "/images/srv-rayos-x.jpg"
   }
  ],
  "productos": [
