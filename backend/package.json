@@ -7,17 +7,17 @@
     "node": ">=22.13"
   },
   "scripts": {
-    "dev": "node --watch --disable-warning=ExperimentalWarning src/index.js",
-    "start": "node --disable-warning=ExperimentalWarning src/index.js",
-    "db:reset": "node --disable-warning=ExperimentalWarning scripts/reiniciar-db.js",
-    "test": "node --disable-warning=ExperimentalWarning --test tests/api.test.js",
-    "catalogo": "node --disable-warning=ExperimentalWarning scripts/exportar-catalogo.js"
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "db:reset": "node scripts/reiniciar-db.js",
+    "test": "node --test tests/api.test.js",
+    "catalogo": "node scripts/exportar-catalogo.js"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.3.16",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
-    "pdfkit": "^0.17.0",
     "pg": "^8.23.1"
   },
   "devDependencies": {

@@ -15,7 +15,7 @@ Proyecto Grupal Integrador · Laboratorio #5 · Full Stack Developer Web · SENA
 - **Inicio** con selector de especies animado: la foto, el título y los servicios cambian según la mascota.
 - **Servicios**: 16 servicios filtrables por especie y por tipo (salud, diagnóstico, cirugía, especialidades…).
 - **Tienda**: 45 productos en 12 categorías. Búsqueda, filtros por especie y categoría, orden y paginación, todo resuelto en la base de datos.
-- **Carrito**: panel lateral con cantidades y opción de deshacer. El pedido se guarda en la base de datos, descuenta stock y genera un **comprobante PDF**.
+- **Carrito**: panel lateral con cantidades y opción de deshacer. El pedido se guarda en la base de datos, descuenta stock y genera un **comprobante imprimible** (se guarda como PDF desde el navegador).
 - **Reservar cita**: asistente de 4 pasos. Muestra los horarios libres reales y asigna al especialista según la especie (por ejemplo, aves → Lia).
 - **Contacto**: formulario animado que guarda los mensajes, estado "Abierto ahora", mapa y preguntas frecuentes.
 - Fotos reales (Unsplash), animaciones con Motion, diseño responsive y accesible (WCAG 2.1 AA).
@@ -26,8 +26,8 @@ Proyecto Grupal Integrador · Laboratorio #5 · Full Stack Developer Web · SENA
 |---|---|
 | Frontend | React 19 + Vite 7 + React Router 7 + Tailwind CSS 4 + Motion + Lucide |
 | Backend | Node.js + Express 5 (API REST por capas: rutas → controladores → modelos) |
-| Base de datos | SQLite integrada en Node (`node:sqlite`), SQL estándar migrable a PostgreSQL |
-| PDF | PDFKit |
+| Base de datos | PostgreSQL: Supabase en producción (`pg`) y PGlite (PostgreSQL embebido) en tu PC y en las pruebas |
+| Comprobante | HTML imprimible generado por la API |
 | Pruebas | `node:test` (7 pruebas de la API) |
 | Despliegue | Vercel (frontend y backend por separado) |
 
@@ -41,13 +41,15 @@ Proyecto Grupal Integrador · Laboratorio #5 · Full Stack Developer Web · SENA
 # Terminal 1: backend → http://localhost:3000/api
 cd backend
 npm install
-npm run dev          # crea la base de datos y carga los datos la primera vez
+npm run dev          # crea las tablas y carga los datos la primera vez
 
 # Terminal 2: frontend → http://localhost:5173
 cd frontend
 npm install
 npm run dev
 ```
+
+Sin configurar nada, el backend usa una base PostgreSQL embebida guardada en `backend/data/pglite`. Para usar Supabase, copia `backend/.env.example` a `backend/.env` y pega la connection string en `DATABASE_URL`.
 
 Si el backend está apagado, el frontend entra en **modo demostración** con el catálogo guardado (aviso amarillo arriba).
 
@@ -56,7 +58,7 @@ Si el backend está apagado, el frontend entra en **modo demostración** con el 
 | Comando | Carpeta | Qué hace |
 |---|---|---|
 | `npm test` | backend | Ejecuta las pruebas de la API |
-| `npm run db:reset` | backend | Borra la base de datos y vuelve a cargar los datos iniciales |
+| `npm run db:reset` | backend | Borra las tablas y vuelve a cargar los datos iniciales (apaga antes `npm run dev`) |
 | `npm run catalogo` | backend | Regenera la copia del catálogo para el modo demostración |
 | `npm run build` | frontend | Compila para producción |
 | `npm run vista-previa` | frontend | Genera un solo HTML que se abre con doble clic |
@@ -72,7 +74,7 @@ huellitavet/
 │   │   ├── controladores/ lógica de cada endpoint
 │   │   ├── rutas/         definición de la API
 │   │   ├── middlewares/   validaciones y manejo de errores
-│   │   └── utils/         comprobante PDF
+│   │   └── utils/         comprobante imprimible
 │   ├── tests/             pruebas de la API
 │   └── api/               entrada para Vercel
 ├── frontend/
@@ -91,10 +93,10 @@ huellitavet/
 
 ## Despliegue en Vercel
 
-1. **Backend**: *Add New → Project* → importar el repositorio → **Root Directory: `backend`** → *Deploy*.
+1. **Backend**: *Add New → Project* → importar el repositorio → **Root Directory: `backend`** → variable `DATABASE_URL` = connection string de Supabase → *Deploy*. Las tablas y los datos iniciales se crean solos en la primera petición.
 2. **Frontend**: *Add New → Project* → mismo repositorio → **Root Directory: `frontend`** → variable `VITE_API_URL` = `https://TU-API.vercel.app/api` → *Deploy*.
 
-En Vercel la base SQLite vive en `/tmp` y se reinicia cada cierto tiempo. Para que los datos persistan, migra a PostgreSQL siguiendo `docs/BASE_DE_DATOS.md`.
+Si la base de Supabase se creó con un esquema anterior, reiníciala una vez desde tu PC con `DATABASE_URL` en `backend/.env` y `npm run db:reset`.
 
 ## Equipo y flujo de trabajo
 

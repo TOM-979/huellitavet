@@ -29,8 +29,8 @@
  │ components/ (páginas,   │ ─────────────▶ │ rutas → controladores        │
  │   X/X.jsx + X.css)  ui/ │                │                              │
  │ context/ (carrito)      │                │        → modelos (SQL)       │
- │ lib/api.js ──respaldo──▶│ catalogo.json  │        → SQLite / PostgreSQL │
- └─────────────────────────┘                │ utils/comprobante.js (PDF)   │
+ │ lib/api.js ──respaldo──▶│ catalogo.json  │        → PostgreSQL          │
+ └─────────────────────────┘                │ utils/comprobante.js (HTML)  │
           │                                 └──────────────────────────────┘
           ▼
  Fotos: CDN de Unsplash (recorte y tamaño por URL)
@@ -40,13 +40,13 @@
 
 | Decisión | Por qué | Costo / qué revisar después |
 |---|---|---|
-| **SQLite integrada en Node (`node:sqlite`)** | Sin instalar ni compilar nada en Windows; el equipo ve SQL real con `CHECK`, `UNIQUE`, `FOREIGN KEY` y transacciones | Es experimental en Node 22/24 y en Vercel no persiste → migrar a PostgreSQL (ver BASE_DE_DATOS.md) |
+| **PostgreSQL: Supabase en producción, PGlite en local** | El mismo motor en todos lados; en local no hay que instalar nada y en Vercel los datos persisten. SQL real con `CHECK`, `UNIQUE`, `FOREIGN KEY` y transacciones | PGlite admite un solo proceso por carpeta; Supabase gratis pausa el proyecto tras días sin uso |
 | **Express por capas** (rutas → controladores → modelos) | Cada integrante trabaja en una capa o recurso sin pisarse | Para más de ~10 recursos convendría un ORM (Prisma) |
 | **Filtros y paginación en el backend** | El catálogo puede crecer sin cargar todo en el navegador | Una consulta por cambio de filtro (con 250 ms de espera al escribir) |
 | **Respaldo `catalogo.json`** | La demo nunca queda vacía si la API cae | Se regenera con `npm run catalogo` cuando cambian los datos |
 | **Fotos desde el CDN de Unsplash** | Imágenes reales y livianas, sin inflar el repositorio | Dependen de internet; el componente `Foto` muestra un respaldo si fallan |
 | **Motion para animaciones** | Animaciones interrumpibles, transiciones de página y `reducedMotion="user"` | Agrega unos 40 KB comprimidos |
-| **Comprobante PDF en el servidor** | El documento es igual en cualquier navegador | Es una nota de venta académica, no un comprobante electrónico SUNAT |
+| **Comprobante HTML imprimible en el servidor** | Liviano para Vercel; se guarda como PDF desde el navegador | Es una nota de venta académica, no un comprobante electrónico SUNAT |
 
 ## 5. API
 

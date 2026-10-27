@@ -1,6 +1,14 @@
 # Base de datos
 
-El esquema completo está en `backend/src/db/schema.sql` y los datos iniciales en `backend/src/db/datos.js`. Al iniciar el backend por primera vez se crean las tablas y se cargan los datos.
+El esquema completo está en `backend/src/db/schema.sql` y los datos iniciales en `backend/src/db/datos.js`. Al iniciar el backend (o en la primera petición, en Vercel) se crean las tablas que falten y, si la base está vacía, se cargan los datos.
+
+La base es PostgreSQL en todos los entornos:
+
+| Entorno | Base | Cómo se elige |
+|---|---|---|
+| Producción (Vercel) | Supabase | Variable `DATABASE_URL` |
+| Tu PC | PGlite (PostgreSQL embebido) en `backend/data/pglite` | `DATABASE_URL` vacío |
+| Pruebas (`npm test`) | PGlite en memoria | Lo fija `tests/api.test.js` |
 
 ## Diagrama entidad-relación
 
@@ -27,7 +35,7 @@ erDiagram
   clientes { int id PK  text nombre  text telefono UK  text correo }
   citas { int id PK  text codigo UK  int cliente_id FK  int especie_id FK  int servicio_id FK  int veterinario_id FK  text fecha  text hora  text estado }
   pedidos { int id PK  text codigo UK  int cliente_id FK  real subtotal  real igv  real total  text estado }
-  pedido_detalle { int pedido_id PK  int producto_id PK  int cantidad  real precio_unitario }
+  pedido_detalle { int pedido_id PK  int producto_id PK  int cantidad  real precio_unit }
   mensajes { int id PK  text nombre  text correo  text asunto  text mensaje }
 ```
 
@@ -41,7 +49,7 @@ erDiagram
 | Estados válidos | `CHECK (estado IN (...))` en `citas` y `pedidos` |
 | Un cliente por celular | `UNIQUE (telefono)` en `clientes` |
 | Un producto sirve a varias especies | Tabla intermedia `producto_especies` (muchos a muchos) |
-| El pedido conserva el precio del momento | `pedido_detalle.precio_unitario` |
+| El pedido conserva el precio del momento | `pedido_detalle.precio_unit` |
 
 ## Transacciones
 
@@ -51,7 +59,7 @@ erDiagram
 
 ```sql
 -- Ventas por categoría
-SELECT c.nombre, SUM(d.cantidad * d.precio_unitario) AS ventas
+SELECT c.nombre, SUM(d.cantidad * d.precio_unit) AS ventas
 FROM pedido_detalle d
 JOIN productos p ON p.id = d.producto_id
 JOIN categorias c ON c.id = p.categoria_id
@@ -67,16 +75,8 @@ GROUP BY v.id;
 SELECT sku, nombre, stock FROM productos WHERE stock <= 5 ORDER BY stock;
 ```
 
-Para abrir la base y ejecutar estas consultas puedes usar [DB Browser for SQLite](https://sqlitebrowser.org/) con el archivo `backend/data/huellitavet.db`.
+Para ejecutar estas consultas en producción usa el *SQL Editor* de Supabase.
 
-## Migrar a PostgreSQL (para producción)
+## Reiniciar la base
 
-El SQL es estándar, así que el cambio es acotado:
-
-1. Crea una base gratuita en [Neon](https://neon.tech) o [Supabase](https://supabase.com) y copia la *connection string*.
-2. En `backend`: `npm install pg`.
-3. Ajusta `schema.sql`: `INTEGER PRIMARY KEY AUTOINCREMENT` → `SERIAL PRIMARY KEY`, `REAL` → `NUMERIC(10,2)`, `datetime('now')` → `NOW()` y quita los `PRAGMA`.
-4. Reemplaza `db/conexion.js` por un `Pool` de `pg` y cambia los `?` de las consultas por `$1, $2…`.
-5. En Vercel agrega la variable `DATABASE_URL`.
-
-Los modelos son el único lugar con SQL: rutas y controladores no cambian.
+`npm run db:reset` (en `backend`) borra todas las tablas, las vuelve a crear con `schema.sql` y carga los datos iniciales. Usa la base que indique `DATABASE_URL` (o la local si está vacío). Apaga antes `npm run dev`: PGlite no admite dos procesos abriendo la misma carpeta.
